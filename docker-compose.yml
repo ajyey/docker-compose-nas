@@ -121,8 +121,7 @@ services:
       - TZ=${TIMEZONE} # Replace with your timezone
     volumes:
       - ./sabnzbd/config:/config # Configuration files
-      - ${DATA_ROOT}/downloads:/downloads # Downloads
-      - ${DATA_ROOT}/incomplete-downloads:/incomplete-downloads # Incomplete downloads
+      - ${DATA_ROOT}/usenet:/data/usenet:rw
     restart: always
     labels:
       - homepage.group=Download
@@ -141,9 +140,8 @@ services:
       - PGID=${GROUP_ID} # Replace with your group ID
       - TZ=${TIMEZONE} # Replace with your timezone
     volumes:
-      - ./readarr:/config # Configuration files
-      - ${DATA_ROOT}/books:/books # Books directory
-      - ${DATA_ROOT}/downloads:/downloads # Downloads
+      - ./readarr:/config
+      - ${DATA_ROOT}:/data
     restart: always
     labels:
       - homepage.group=Media
@@ -189,18 +187,16 @@ services:
       - PGID=1000
       - TZ=${TIMEZONE}
       - VERSION=docker
-      - PLEX_CLAIM=claim-xbtn7VzfF6H1T6EhxVHS #optional
+      - PLEX_CLAIM=claim-6gasLnyPvZPhQSmTyAYT #optional
     volumes:
       - ./plex:/config
       - ./plex/transcode:/transcode # Replace with the path to your transcode directory
-      - ./plex/media:/data # Replace with the path to your media library
+      - ${DATA_ROOT}/media:/data/media
     restart: unless-stopped
     labels:
       - homepage.group=Media
       - homepage.name=Plex
       - homepage.icon=plex.png
-      - homepage.widget.type=plex
-      - homepage.widget.url=http://plex:32400
       - homepage.description=Media Server
       - homepage.href=http://localhost:32400
       - homepage.weight=6
@@ -222,7 +218,7 @@ services:
       - homepage.icon=tautulli.png
       - homepage.widget.type=tautulli
       - homepage.widget.url=http://tautulli:8181
-      - homepage.widget.key=bac11be536514cde9dea012ddf70af16
+      - homepage.widget.key=${TAUTULLI_API_KEY}
       - homepage.description=Monitor your Plex Media Server
       - homepage.href=http://localhost:8181
       - homepage.weight=6
