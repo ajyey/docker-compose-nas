@@ -2,6 +2,17 @@
 
 # See https://stackoverflow.com/a/44864004 for the sed GNU/BSD compatible hack
 
+#!/bin/bash
+
+# Function to extract the API key from tautulli config file
+extract_api_key_from_ini() {
+    local config_file="$1"
+    grep "^api_key = " "$config_file" | cut -d ' ' -f 3
+}
+
+
+TAUTULLI_CONFIG_FILE="./tautulli/config/config.ini"
+
 echo "Updating Radarr configuration..."
 until [ -f ./radarr/config.xml ]
 do
@@ -34,12 +45,16 @@ done
 sed -i.bak "s/<UrlBase><\/UrlBase>/<UrlBase>\/prowlarr<\/UrlBase>/" ./prowlarr/config.xml && rm ./prowlarr/config.xml.bak
 sed -i.bak 's/^PROWLARR_API_KEY=.*/PROWLARR_API_KEY='"$(sed -n 's/.*<ApiKey>\(.*\)<\/ApiKey>.*/\1/p' ./prowlarr/config.xml)"'/' .env && rm .env.bak
 
-echo "Updating Jellyfin configuration..."
-until [ -f ./jellyfin/network.xml ]
+echo "Updating Tautulli configuration..."
+until [ -f "$TAUTULLI_CONFIG_FILE" ]
 do
   sleep 5
 done
-sed -i.bak "s/<BaseUrl \/>/<BaseUrl>\/jellyfin<\/BaseUrl>/" ./jellyfin/network.xml && rm ./jellyfin/network.xml.bak
+TAUTULLI_API_KEY=$(extract_api_key_from_ini "$TAUTULLI_CONFIG_FILE")
+echo ${NEW_SERVICE_API_KEY}
+sed -i.bak 's/^TAUTULLI_API_KEY=.*/TAUTULLI_API_KEY='"$TAUTULLI_API_KEY"'/' .env && rm .env.bak
 
 echo "Restarting containers..."
-docker compose restart radarr sonarr prowlarr jellyfin
+sudo docker compose restart radarr sonarr lidarr prowlarr tautulli
+
+
