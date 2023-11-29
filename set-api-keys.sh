@@ -2,7 +2,8 @@
 
 # See https://stackoverflow.com/a/44864004 for the sed GNU/BSD compatible hack
 
-#!/bin/bash
+# This script pulls the api keys from each service's corresponding configuration file and updates the .env file appropriately
+# Run this after your first time starting all of the docker services/containers
 
 # Function to extract the API key from tautulli config file
 extract_api_key_from_ini() {
