@@ -37,6 +37,14 @@ done
 sed -i.bak "s/<UrlBase><\/UrlBase>/<UrlBase>\/lidarr<\/UrlBase>/" ./lidarr/config.xml && rm ./lidarr/config.xml.bak
 sed -i.bak 's/^LIDARR_API_KEY=.*/LIDARR_API_KEY='"$(sed -n 's/.*<ApiKey>\(.*\)<\/ApiKey>.*/\1/p' ./lidarr/config.xml)"'/' .env && rm .env.bak
 
+echo "Updating Readarr configuration..."
+until [ -f ./readarr/config.xml ]
+do
+  sleep 5
+done
+sed -i.bak "s/<UrlBase><\/UrlBase>/<UrlBase>\/readarr<\/UrlBase>/" ./readarr/config.xml && rm ./readarr/config.xml.bak
+sed -i.bak 's/^READARR_API_KEY=.*/READARR_API_KEY='"$(sed -n 's/.*<ApiKey>\(.*\)<\/ApiKey>.*/\1/p' ./readarr/config.xml)"'/' .env && rm .env.bak
+
 echo "Updating Prowlarr configuration..."
 until [ -f ./prowlarr/config.xml ]
 do
@@ -55,6 +63,6 @@ echo ${NEW_SERVICE_API_KEY}
 sed -i.bak 's/^TAUTULLI_API_KEY=.*/TAUTULLI_API_KEY='"$TAUTULLI_API_KEY"'/' .env && rm .env.bak
 
 echo "Restarting containers..."
-sudo docker compose restart radarr sonarr lidarr prowlarr tautulli
+sudo docker compose restart radarr sonarr lidarr readarr prowlarr tautulli
 
 
