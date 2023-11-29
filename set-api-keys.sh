@@ -11,8 +11,13 @@ extract_api_key_from_ini() {
     grep "^api_key = " "$config_file" | cut -d ' ' -f 3
 }
 
+extract_api_key_from_json() {
+    local config_file="$1"
+    jq -r '.main.apiKey' "$config_file"
+}
 
 TAUTULLI_CONFIG_FILE="./tautulli/config/config.ini"
+OVERSEERR_CONFIG_FILE="./overseerr/config/settings.json"
 
 echo "Updating Radarr configuration..."
 until [ -f ./radarr/config.xml ]
@@ -54,6 +59,14 @@ done
 sed -i.bak "s/<UrlBase><\/UrlBase>/<UrlBase>\/prowlarr<\/UrlBase>/" ./prowlarr/config.xml && rm ./prowlarr/config.xml.bak
 sed -i.bak 's/^PROWLARR_API_KEY=.*/PROWLARR_API_KEY='"$(sed -n 's/.*<ApiKey>\(.*\)<\/ApiKey>.*/\1/p' ./prowlarr/config.xml)"'/' .env && rm .env.bak
 
+echo "Updating Overseerr configuration..."
+until [ -f "$OVERSEERR_CONFIG_FILE" ]
+do
+  sleep 5
+done
+OVERSEERR_API_KEY=$(extract_api_key_from_json "$OVERSEERR_CONFIG_FILE")
+sed -i.bak 's/^OVERSEERR_API_KEY=.*/OVERSEERR_API_KEY="'"${OVERSEERR_API_KEY}"'"/' .env && rm .env.bak
+
 echo "Updating Tautulli configuration..."
 until [ -f "$TAUTULLI_CONFIG_FILE" ]
 do
@@ -64,6 +77,6 @@ echo ${NEW_SERVICE_API_KEY}
 sed -i.bak 's/^TAUTULLI_API_KEY=.*/TAUTULLI_API_KEY='"$TAUTULLI_API_KEY"'/' .env && rm .env.bak
 
 echo "Restarting containers..."
-sudo docker compose restart radarr sonarr lidarr readarr prowlarr tautulli
+sudo docker compose restart radarr sonarr lidarr readarr prowlarr overseerr tautulli
 
 
