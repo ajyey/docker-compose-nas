@@ -163,7 +163,7 @@ services:
       - LOG_LEVE=debug
       - PORT=5055
     volumes:
-      - ./overseer/config:/config
+      - ./overseerr/config:/config
     ports:
       - 5055:5055
     restart: unless-stopped

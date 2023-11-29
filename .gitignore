@@ -15,8 +15,8 @@ docker-compose.override.yml
 !/prowlarr/.gitkeep
 /lidarr
 !/lidarr/.gitkeep
-/overseer
-!/overseer/.gitkeep
+/overseerr
+!/overseerr/.gitkeep
 /qbittorrent
 !/qbittorrent/.gitkeep
 /pia
