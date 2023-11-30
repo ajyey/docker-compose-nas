@@ -1,4 +1,9 @@
 version: "3.9"
+
+networks:
+  default:
+    name: docker-compose-nas
+
 services:
   # Homepage - Dashboard
   # https://github.com/gethomepage/homepage
@@ -225,6 +230,7 @@ services:
       - homepage.description=Media Server
       - homepage.href=http://localhost:32400
       - homepage.weight=6
+
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
     container_name: tautulli
@@ -247,7 +253,37 @@ services:
       - homepage.description=Monitor your Plex Media Server
       - homepage.href=http://localhost:8181
       - homepage.weight=6
-  
+
+  ##############################
+  # Utilities
+  ##############################
+
+  # Portainer - WebUI for Containers
+  # https://github.com/portainer/portainer
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    command: -H unix:///var/run/docker.sock # Use Docker Socket Proxy and comment this line out, for improved security.
+    ports: 
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Use Docker Socket Proxy and comment this line out, for improved security.
+      - ./portainer/data:/data # Change to local directory if you want to save/transfer config locally.
+    environment:
+      - TZ=${TIMEZONE}
+      - PUID=${USER_ID}
+      - PGID=${GROUP_ID}
+    restart: always
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=Portainer
+      - homepage.icon=portainer.png
+      - homepage.href=http://localhost:9000
+      - homepage.description=WebUI for Containers
+      - homepage.weight=0
+
+  # Watchtower - Auto update containers
+  # https://github.com/containrrr/watchtower
   watchtower:
     image: containrrr/watchtower
     container_name: watchtower
@@ -256,6 +292,9 @@ services:
       - WATCHTOWER_CLEANUP=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  # Autoheal - Auto restart unhealthy containers
+  # https://github.com/willfarrell/docker-autoheal
   autoheal:
     image: willfarrell/autoheal:latest
     container_name: autoheal
@@ -264,7 +303,3 @@ services:
       - AUTOHEAL_CONTAINER_LABEL=all
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-networks:
-  default:
-    name: docker-compose-nas
