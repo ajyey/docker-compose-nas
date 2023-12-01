@@ -40,7 +40,8 @@ docker-compose.override.yml
 !/adguardhome/work/.gitkeep
 /sabnzbd
 !/sabnzbd/.gitkeep
-
+/gluetun
+!/gluetun/.gitkeep
 # Utilities
 /portainer
 !/portainer/.gitkeep

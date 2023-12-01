@@ -254,6 +254,61 @@ services:
       - homepage.href=http://localhost:8181
       - homepage.weight=6
 
+  
+  # Gluetun - VPN Client for Docker Containers and More
+  # https://www.smarthomebeginner.com/gluetun-docker-guide/
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "8081:8081" # qBittorrent
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    volumes:
+      - ./gluetun:/gluetun
+    environment:
+      TZ: ${TIMEZONE}
+      # Wireguard
+      # VPN_SERVICE_PROVIDER: windscribe
+      # VPN_TYPE: wireguard
+      # WIREGUARD_PRIVATE_KEY: "aPClFdBFA6xINJF1cuCdVsoY4GDLCBlYmgm62sqiYWc="
+      # WIREGUARD_ADDRESSES: "100.75.9.0/32"
+      # SERVER_COUNTRIES: Netherlands
+      # # OpenVPN
+      VPN_SERVICE_PROVIDER: windscribe
+      VPN_TYPE: openvpn
+      OPENVPN_USER: ${OPENVPN_USER}
+      OPENVPN_PASSWORD: ${OPENVPN_PASS}
+
+  
+  # qBittorrent - Torrent downloader
+  # https://www.smarthomebeginner.com/gluetun-docker-guide/
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:4.6.0
+    container_name: qbittorrent
+    network_mode: "service:gluetun"
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./qbittorrent:/config
+      - ${DATA_ROOT}/torrents/downloads:/data/downloads # Ensure that the downloads folder is set to /data/downloads in qBittorrent
+    environment:
+      PUID: ${USER_ID}
+      PGID: ${GROUP_ID}
+      UMASK_SET: 002
+      WEBUI_PORT: 8081
+    healthcheck: # https://github.com/qdm12/gluetun/issues/641#issuecomment-933856220
+      test: "curl -sf https://example.com  || exit 1"
+      interval: 1m
+      timeout: 10s
+      retries: 1
+    restart: unless-stopped
+
   ##############################
   # Utilities
   ##############################
