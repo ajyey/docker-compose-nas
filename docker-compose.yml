@@ -33,8 +33,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr
     container_name: sonarr
-    ports:
-      - "8989:8989"
+    network_mode: "service:gluetun"
     environment:
       - PUID=${USER_ID}
       - PGID=${GROUP_ID}
@@ -58,13 +57,12 @@ services:
       # When you run multiple services in a Docker Compose file, Docker creates a default network for these services to communicate with each other. 
       # Inside this network, containers can refer to each other by their service names as defined in the Docker Compose file. 
       # In this case, the sonarr service can be reached at http://sonarr:8989 from any other service within the same Docker network.
-      - homepage.widget.url=http://sonarr:8989
+      - homepage.widget.url=http://gluetun:8989
       - homepage.widget.key=${SONARR_API_KEY}
   radarr:
     image: lscr.io/linuxserver/radarr
     container_name: radarr
-    ports:
-      - "7878:7878"
+    network_mode: "service:gluetun"
     environment:
       - PUID=${USER_ID}
       - PGID=${GROUP_ID}
@@ -85,13 +83,12 @@ services:
       - homepage.description=Movies management
       - homepage.weight=1
       - homepage.widget.type=radarr
-      - homepage.widget.url=http://radarr:7878
+      - homepage.widget.url=http://gluetun:7878
       - homepage.widget.key=${RADARR_API_KEY}
   lidarr:
     image: lscr.io/linuxserver/lidarr
     container_name: lidarr
-    ports:
-      - "8686:8686"
+    network_mode: "service:gluetun"
     environment:
       - PUID=${USER_ID}
       - PGID=${GROUP_ID}
@@ -112,13 +109,12 @@ services:
       - homepage.description=Music management
       - homepage.weight=2
       - homepage.widget.type=lidarr
-      - homepage.widget.url=http://lidarr:8686
+      - homepage.widget.url=http://gluetun:8686
       - homepage.widget.key=${LIDARR_API_KEY}
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    ports:
-      - "9696:9696"
+    network_mode: "service:gluetun"
     environment:
       - PUID=${USER_ID}
       - PGID=${GROUP_ID}
@@ -138,7 +134,7 @@ services:
       - homepage.description=Indexers management
       - homepage.weight=4
       - homepage.widget.type=prowlarr
-      - homepage.widget.url=http://prowlarr:9696
+      - homepage.widget.url=http://gluetun:9696
       - homepage.widget.key=${PROWLARR_API_KEY}
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
@@ -163,8 +159,7 @@ services:
   readarr:
     image: lscr.io/linuxserver/readarr:nightly
     container_name: readarr
-    ports:
-      - "8787:8787" # Readarr Web UI
+    network_mode: "service:gluetun"
     environment:
       - PUID=${USER_ID} # Replace with your user ID
       - PGID=${GROUP_ID} # Replace with your group ID
@@ -181,7 +176,7 @@ services:
       - homepage.description=Ebook and Audiobook management
       - homepage.weight=3
       - homepage.widget.type=readarr
-      - homepage.widget.url=http://readarr:8787
+      - homepage.widget.url=http://gluetun:8787
       - homepage.widget.key=${READARR_API_KEY}
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
@@ -263,7 +258,13 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
+      # Expose ports for services that route their traffic through the VPN
       - "8081:8081" # qBittorrent
+      - "8989:8989" # Sonarr
+      - "7878:7878" # Radarr
+      - "8686:8686" # Lidarr
+      - "9696:9696" # Prowlarr
+      - "8787:8787" # Readarr
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
