@@ -207,6 +207,21 @@ services:
       - homepage.widget.type=overseerr
       - homepage.widget.url=http://overseerr:5055
       - homepage.widget.key=${OVERSEERR_API_KEY}
+  
+  buildarr:
+    image: callum027/buildarr:latest
+    container_name: buildarr
+    restart: always
+    volumes:
+      - ./buildarr:/config:ro
+    environment:
+      TZ: ${TIMEZONE}
+      PUID: "1000"
+      PGID: "1000"
+    depends_on:
+      - sonarr
+      - radarr
+      - prowlarr
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
@@ -310,11 +325,23 @@ services:
       timeout: 10s
       retries: 1
     restart: unless-stopped
+    labels:
+      - homepage.group=Download
+      - homepage.name=qbittorrent
+      - homepage.icon=qbittorrent.png
+      - homepage.href=http://localhost:8081
+      - homepage.description=Torrent downloader
+      - homepage.widget.type=qbittorrent
+      - homepage.widget.url=http://gluetun:8081
+      - homepage.widget.username=${QBITTORRENT_USERNAME}
+      - homepage.widget.password=${QBITTORRENT_PASSWORD}
+    depends_on:
+      - gluetun
 
   ##############################
   # Utilities
   ##############################
-  
+
   # Dozzle - Docker logs viewer
   # https://github.com/amir20/dozzle
   dozzle:
