@@ -285,6 +285,8 @@ services:
       VPN_TYPE: openvpn
       OPENVPN_USER: ${OPENVPN_USER}
       OPENVPN_PASSWORD: ${OPENVPN_PASS}
+      SERVER_REGIONS: Netherlands
+      
 
   
   # qBittorrent - Torrent downloader
