@@ -314,6 +314,23 @@ services:
   ##############################
   # Utilities
   ##############################
+  
+  # Dozzle - Docker logs viewer
+  # https://github.com/amir20/dozzle
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8888:8080
+    restart: always
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=Dozzle
+      - homepage.href=http://localhost:8888
+      - homepage.description=Docker logs viewer
+      - homepage.weight=0
 
   # Portainer - WebUI for Containers
   # https://github.com/portainer/portainer
