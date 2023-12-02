@@ -464,3 +464,15 @@ services:
       - AUTOHEAL_CONTAINER_LABEL=all
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  # Home Server docs
+  # https://squidfunk.github.io/mkdocs-material/
+  mkdocs:
+    container_name: mkdocs
+    image: squidfunk/mkdocs-material:latest
+    ports: 
+      - 8000:8000
+    restart: unless-stopped
+    volumes:
+      - ./docs:/docs:ro
+
