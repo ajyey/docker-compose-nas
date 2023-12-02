@@ -51,7 +51,7 @@ services:
       - homepage.group=Media
       - homepage.name=Sonarr
       - homepage.icon=sonarr.png
-      - homepage.href=http://localhost:8989
+      - homepage.href=http://${HOMEPAGE_HREF}:8989
       - homepage.description=Series management
       - homepage.weight=0
       - homepage.widget.type=sonarr
@@ -81,7 +81,7 @@ services:
       - homepage.group=Media
       - homepage.name=Radarr
       - homepage.icon=radarr.png
-      - homepage.href=http://localhost:7878
+      - homepage.href=http://${HOMEPAGE_HREF}:7878
       - homepage.description=Movies management
       - homepage.weight=1
       - homepage.widget.type=radarr
@@ -108,7 +108,7 @@ services:
       - homepage.group=Media
       - homepage.name=Lidarr
       - homepage.icon=lidarr.png
-      - homepage.href=http://localhost:8686
+      - homepage.href=http://${HOMEPAGE_HREF}:8686
       - homepage.description=Music management
       - homepage.weight=2
       - homepage.widget.type=lidarr
@@ -134,7 +134,7 @@ services:
       - homepage.group=Download
       - homepage.name=Prowlarr
       - homepage.icon=prowlarr.png
-      - homepage.href=http://localhost:9696
+      - homepage.href=http://${HOMEPAGE_HREF}:9696
       - homepage.description=Indexers management
       - homepage.weight=4
       - homepage.widget.type=prowlarr
@@ -157,7 +157,7 @@ services:
       - homepage.group=Download
       - homepage.name=SABnzbd
       - homepage.icon=sabnzbd.png
-      - homepage.href=http://localhost:8080
+      - homepage.href=http://${HOMEPAGE_HREF}:8080
       - homepage.description=Usenet
       - homepage.weight=6
   readarr:
@@ -177,12 +177,13 @@ services:
       - homepage.group=Media
       - homepage.name=Readarr
       - homepage.icon=readarr.png
-      - homepage.href=http://localhost:8787
+      - homepage.href=http://${HOMEPAGE_HREF}:8787
       - homepage.description=Ebook and Audiobook management
       - homepage.weight=3
       - homepage.widget.type=readarr
       - homepage.widget.url=http://readarr:8787
       - homepage.widget.key=${READARR_API_KEY}
+
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
     container_name: overseerr
@@ -190,7 +191,7 @@ services:
       - PUID=${USER_ID}
       - PGID=${GROUP_ID}
       - TZ=${TIMEZONE}
-      - LOG_LEVE=debug
+      - LOG_LEVEL=debug
       - PORT=5055
     volumes:
       - ./overseerr/config:/config
@@ -201,7 +202,7 @@ services:
       - homepage.group=Media
       - homepage.name=Overseerr
       - homepage.icon=overseerr.png
-      - homepage.href=http://localhost:5055
+      - homepage.href=http://${HOMEPAGE_HREF}:5055
       - homepage.description=Media Discovery & Request Management
       - homepage.weight=3
       - homepage.widget.type=overseerr
@@ -216,12 +217,11 @@ services:
       - ./buildarr:/config:ro
     environment:
       TZ: ${TIMEZONE}
-      PUID: "1000"
-      PGID: "1000"
     depends_on:
       - sonarr
       - radarr
       - prowlarr
+  
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
@@ -254,6 +254,7 @@ services:
       - homepage.widget.type=jellyfin
       - homepage.widget.url=http://jellyfin:8096
       - homepage.widget.key=${JELLYFIN_API_KEY}
+  
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
@@ -279,6 +280,8 @@ services:
       - homepage.widget.type=jellyseerr
       - homepage.widget.url=http://jellyseerr:5056
       - homepage.widget.key=${JELLYSEERR_API_KEY}
+
+  
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
@@ -289,7 +292,7 @@ services:
       - PGID=${GROUP_ID}
       - TZ=${TIMEZONE}
       - VERSION=docker
-      - PLEX_CLAIM=claim-6gasLnyPvZPhQSmTyAYT #optional
+      # - PLEX_CLAIM=claim-sprerScPGnha1z4mKdr7 #optional
     volumes:
       - ./plex:/config
       - ./plex/transcode:/transcode # Replace with the path to your transcode directory
@@ -300,7 +303,7 @@ services:
       - homepage.name=Plex
       - homepage.icon=plex.png
       - homepage.description=Media Server
-      - homepage.href=http://localhost:32400
+      - homepage.href=http://${HOMEPAGE_HREF}:32400
       - homepage.weight=6
 
   tautulli:
@@ -323,7 +326,7 @@ services:
       - homepage.widget.url=http://tautulli:8181
       - homepage.widget.key=${TAUTULLI_API_KEY}
       - homepage.description=Monitor your Plex Media Server
-      - homepage.href=http://localhost:8181
+      - homepage.href=http://${HOMEPAGE_HREF}:8181
       - homepage.weight=6
 
   
@@ -386,7 +389,7 @@ services:
       - homepage.group=Download
       - homepage.name=qbittorrent
       - homepage.icon=qbittorrent.png
-      - homepage.href=http://localhost:8081
+      - homepage.href=http://${HOMEPAGE_HREF}:8081
       - homepage.description=Torrent downloader
       - homepage.widget.type=qbittorrent
       - homepage.widget.url=http://gluetun:8081
@@ -412,7 +415,7 @@ services:
     labels:
       - homepage.group=Utilities
       - homepage.name=Dozzle
-      - homepage.href=http://localhost:8888
+      - homepage.href=http://${HOMEPAGE_HREF}:8888
       - homepage.description=Docker logs viewer
       - homepage.weight=0
 
@@ -436,7 +439,7 @@ services:
       - homepage.group=Utilities
       - homepage.name=Portainer
       - homepage.icon=portainer.png
-      - homepage.href=http://localhost:9000
+      - homepage.href=http://${HOMEPAGE_HREF}:9000
       - homepage.description=WebUI for Containers
       - homepage.weight=0
 
