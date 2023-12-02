@@ -77,6 +77,6 @@ echo ${NEW_SERVICE_API_KEY}
 sed -i.bak 's/^TAUTULLI_API_KEY=.*/TAUTULLI_API_KEY='"$TAUTULLI_API_KEY"'/' .env && rm .env.bak
 
 echo "Restarting containers..."
-sudo docker compose restart radarr sonarr lidarr readarr prowlarr overseerr tautulli
+sudo docker compose restart radarr sonarr lidarr readarr prowlarr overseerr tautulli homepage
 
 
