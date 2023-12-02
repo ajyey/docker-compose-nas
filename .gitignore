@@ -45,3 +45,6 @@ docker-compose.override.yml
 # Utilities
 /portainer
 !/portainer/.gitkeep
+/buildarr
+!/buildarr/.gitkeep
+!/buildarr/.buildarr.example.yml
