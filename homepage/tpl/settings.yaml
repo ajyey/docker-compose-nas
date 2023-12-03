@@ -13,6 +13,9 @@ layout:
   Download:
     style: row
     columns: 2
+  Utilities:
+    style: row
+    columns: 2
 
 quicklaunch:
   searchDescriptions: true
