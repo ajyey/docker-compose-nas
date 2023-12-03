@@ -1,13 +1,19 @@
-# Welcome to MkDocs
+# Start Here
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## What is this?
 
-## Commands
+This is a collection of documentation for my home server. It is constantly evolving as my server evolves and will be updated as I make changes.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+It provides a way for me to keep track of what I have done and how I did it. It provides as much detail as possible so that I can easily replicate my server if I need to.
+
+## System Information
+
+### Software
+- OS: [Ubuntu 23.10](https://ubuntu.com/blog/ubuntu-desktop-23-10-mantic-minotaur-deep-dive)
+
+### Hardware
+- [Beelink EQ12 Mini PC](https://www.amazon.com/Beelink-Windows-Desktop-Gigabit-Ethernet/dp/B09DPR1TMR?th=1)
+    - This is the main server. It is a small form factor PC that runs Ubuntu 23.10 and all the necessary Docker containers.
 
 ## Project layout
 
