@@ -1,6 +1,8 @@
 site_name: Home Server Docs
 theme:
   name: material
+  features:
+    - navigation.instant
   palette:
       # Palette toggle for automatic mode
       - media: "(prefers-color-scheme)"
