@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script creates the recommended directory structure for storing media 
+# as outlined by the guide at https://trash-guides.info/Hardlinks/How-to-setup-for/Docker/#folder-structure
+
 # Check if a username has been provided
 if [ -z "$1" ]; then
     echo "Usage: $0 username"
