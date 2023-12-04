@@ -298,6 +298,8 @@ services:
       - ./plex/transcode:/transcode # Replace with the path to your transcode directory
       - ${DATA_ROOT}/media:/data/media
     restart: unless-stopped
+    devices:
+      - /dev/dri:/dev/dri # for hardware transcoding
     labels:
       - homepage.group=Media
       - homepage.name=Plex
