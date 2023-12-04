@@ -18,11 +18,6 @@ sudo apt update && sudo apt upgrade -y
 echo "Installing common packages..."
 sudo apt install -y vim git curl wget ufw fail2ban htop zsh gpg
 
-# Set up a firewall with UFW
-echo "Setting up the firewall..."
-sudo ufw allow OpenSSH
-sudo ufw --force enable
-sudo ufw status
 
 # Install and configure SSH
 echo "Installing and configuring SSH..."
