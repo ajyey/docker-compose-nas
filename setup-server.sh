@@ -104,10 +104,7 @@ echo "Adding user to the Docker group..."
 sudo usermod -aG docker $USER
 
 # Output Docker and Docker Compose versions
-echo "Docker and Docker Compose installed:"
-docker version
-docker compose version
-
+echo "Docker and Docker Compose installed"
 echo "Home server setup script has completed."
 echo "You will need to log out and back in for the usermod and default shell changes to take effect."
 echo "You can source ~/.zshrc to reload the shell."
