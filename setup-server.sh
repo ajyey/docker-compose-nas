@@ -16,7 +16,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Install common packages
 echo "Installing common packages..."
-sudo apt-get install -y make vim git curl wgethtop zsh gpg build-essential libssl-dev zlib1g-dev \
+sudo apt-get install -y make vim git curl wgethtop ufw zsh gpg build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
 libncurses-dev xz-utils tk-dev libffi-dev liblzma-dev
 
@@ -97,7 +97,7 @@ echo \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Add the current user to the Docker group
 echo "Adding user to the Docker group..."
