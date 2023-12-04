@@ -16,7 +16,9 @@ sudo apt update && sudo apt upgrade -y
 
 # Install common packages
 echo "Installing common packages..."
-sudo apt install -y vim git curl wget ufw fail2ban htop zsh gpg
+sudo apt-get install -y make vim git curl wgethtop zsh gpg build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncurses-dev xz-utils tk-dev libffi-dev liblzma-dev
 
 
 # Install and configure SSH
@@ -27,10 +29,10 @@ sudo systemctl start ssh
 
 # Install Oh My Zsh
 echo "Installing Oh My Zsh..."
-# Set CHSH to no to prevent the script from prompt me to change the default shell
-CHSH=no sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-echo "Setting zsh as the default shell..."
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# Set Zsh as the default shell
+echo "Setting Zsh as the default shell..."
 sudo chsh -s $(which zsh) $USER
 
 echo "Installing plugins..."
@@ -72,8 +74,9 @@ echo "Setting up pyenv..."
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
 echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(pyenv init -)"' >> ~/.zshrc
-# Reload .zshrc
-source ~/.zshrc
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 # Install python
 pyenv install 3.12.0 
 pyenv global 3.12.0   # Set the installed version as the global default
@@ -105,10 +108,6 @@ echo "Docker and Docker Compose installed:"
 docker version
 docker compose version
 
-# Reload .zshrc
-source ~/.zshrc
-
-# Additional setup can go here...
-
 echo "Home server setup script has completed."
 echo "You will need to log out and back in for the usermod and default shell changes to take effect."
+echo "You can source ~/.zshrc to reload the shell."
