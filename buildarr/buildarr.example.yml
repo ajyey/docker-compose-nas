@@ -249,6 +249,16 @@ radarr:
   url_base: null
   api_key: your_api_key
   settings:
+    media_management:
+      rename_movies: true
+      replace_illegal_characters: true
+      colon_replacement: delete
+      # https://trash-guides.info/Radarr/Radarr-recommended-naming-scheme/
+      standard_movie_format: '{Movie CleanTitle} {(Release Year)} {imdb-{ImdbId}} {edition-{Edition
+        Tags}} {[Custom Formats]}{[Quality Full]}{[MediaInfo 3D]}{[MediaInfo VideoDynamicRangeType]}{[Mediainfo
+        AudioCodec}{ Mediainfo AudioChannels]}[{Mediainfo VideoCodec}]{-Release Group}'
+      movie_folder_format: '{Movie CleanTitle} ({Release Year})'
+      propers_and_repacks: do-not-prefer
     quality:
       # Import quality profiles from TRaSH-Guides
       # https://trash-guides.info/Radarr/Radarr-Quality-Settings-File-Size/
