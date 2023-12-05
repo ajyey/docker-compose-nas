@@ -140,6 +140,12 @@ services:
       - homepage.widget.type=prowlarr
       - homepage.widget.url=http://prowlarr:9696
       - homepage.widget.key=${PROWLARR_API_KEY}
+    depends_on:
+      - sonarr
+      - radarr
+      - readarr
+      - lidarr
+      - sabnzbd
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
@@ -220,7 +226,10 @@ services:
     depends_on:
       - sonarr
       - radarr
+      - lidarr
+      - readarr
       - prowlarr
+      - sabnzbd
   
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
