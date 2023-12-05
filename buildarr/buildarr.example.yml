@@ -17,232 +17,232 @@ prowlarr:
   settings:
     indexers:
       indexers:
+        delete_unmanaged: false
+        definitions:
+          altHUB:
+            type: newznab
+            enable: true
+            sync_profile: Standard
+            redirect: false
+            priority: 25
+            query_limit: null
+            grab_limit: null
+            tags: []
+            fields:
+              baseUrl: https://api.althub.co.za
+              apiPath: /api
+              additionalParameters: null
+              vipExpiration: ''
+              baseSettings.limitsUnit: Day
+            secret_fields:
+              apiKey: your_api_key
+          DrunkenSlug:
+            type: newznab
+            enable: true
+            sync_profile: Standard
+            redirect: false
+            priority: 3
+            query_limit: null
+            grab_limit: null
+            tags: []
+            fields:
+              baseUrl: https://drunkenslug.com
+              apiPath: /api
+              additionalParameters: null
+              vipExpiration: ''
+              baseSettings.limitsUnit: Day
+            secret_fields:
+              apiKey: your_api_key
+          NinjaCentral:
+            type: newznab
+            enable: true
+            sync_profile: Standard
+            redirect: false
+            priority: 1
+            query_limit: null
+            grab_limit: null
+            tags: []
+            fields:
+              baseUrl: https://ninjacentral.co.za
+              apiPath: /api
+              additionalParameters: null
+              vipExpiration: ''
+              baseSettings.limitsUnit: Day
+            secret_fields:
+              apiKey: your_api_key
+          NZBgeek:
+            type: newznab
+            enable: true
+            sync_profile: Standard
+            redirect: false
+            priority: 2
+            query_limit: null
+            grab_limit: null
+            tags: []
+            fields:
+              baseUrl: https://api.nzbgeek.info
+              apiPath: /api
+              additionalParameters: null
+              vipExpiration: ''
+              baseSettings.limitsUnit: Day
+            secret_fields:
+              apiKey: your_api_key
+      proxies:
+        delete_unmanaged: false
+        definitions: {}
+    apps:
+      applications:
+        delete_unmanaged: false
+        definitions:
+          Lidarr:
+            type: lidarr
+            prowlarr_url: http://prowlarr:9696
+            base_url: http://lidarr:8686
+            sync_level: full-sync
+            sync_categories:
+            - audio/audiobook
+            - audio/other
+            - audio/mp3
+            - audio/lossless
+            - audio
+            - audio/foreign
+            tags: []
+            api_key: your_api_key
+          Radarr:
+            type: radarr
+            prowlarr_url: http://prowlarr:9696
+            base_url: http://radarr:7878
+            sync_level: full-sync
+            sync_categories:
+            - movies/sd
+            - movies/3d
+            - movies/hd
+            - movies
+            - movies/x265
+            - movies/dvd
+            - movies/other
+            - movies/uhd
+            - movies/foreign
+            - movies/web-dl
+            - movies/bluray
+            tags: []
+            instance_name: null
+            api_key: your_api_key
+          Readarr:
+            type: readarr
+            prowlarr_url: http://prowlarr:9696
+            base_url: http://readarr:8787
+            sync_level: full-sync
+            sync_categories:
+            - audio/audiobook
+            - books/technical
+            - books/foreign
+            - books
+            - books/comics
+            - books/other
+            - books/ebook
+            - books/mags
+            tags: []
+            api_key: your_api_key
+          Sonarr:
+            type: sonarr
+            prowlarr_url: http://prowlarr:9696
+            base_url: http://sonarr:8989
+            sync_level: full-sync
+            sync_categories:
+            - tv
+            - tv/other
+            - tv/foreign
+            - tv/x265
+            - tv/sd
+            - tv/uhd
+            - tv/hd
+            - tv/web-dl
+            tags: []
+            instance_name: null
+            api_key: your_api_key
+            anime_sync_categories:
+            - tv/anime
+            sync_anime_standard_format_search: false
+      sync_profiles:
+        delete_unmanaged: false
+        definitions:
+          Standard:
+            enable_rss: true
+            enable_interactive_search: true
+            enable_automatic_search: true
+            minimum_seeders: 1
+    download_clients:
       delete_unmanaged: false
       definitions:
-        altHUB:
-          type: newznab
+        SABnzbd:
           enable: true
-          sync_profile: Standard
-          redirect: false
-          priority: 25
-          query_limit: null
-          grab_limit: null
-          tags: []
-          fields:
-            baseUrl: https://api.althub.co.za
-            apiPath: /api
-            additionalParameters: null
-            vipExpiration: ''
-            baseSettings.limitsUnit: Day
-          secret_fields:
-            apiKey: your_api_key
-        DrunkenSlug:
-          type: newznab
-          enable: true
-          sync_profile: Standard
-          redirect: false
-          priority: 3
-          query_limit: null
-          grab_limit: null
-          tags: []
-          fields:
-            baseUrl: https://drunkenslug.com
-            apiPath: /api
-            additionalParameters: null
-            vipExpiration: ''
-            baseSettings.limitsUnit: Day
-          secret_fields:
-            apiKey: your_api_key
-        NinjaCentral:
-          type: newznab
-          enable: true
-          sync_profile: Standard
-          redirect: false
           priority: 1
-          query_limit: null
-          grab_limit: null
           tags: []
-          fields:
-            baseUrl: https://ninjacentral.co.za
-            apiPath: /api
-            additionalParameters: null
-            vipExpiration: ''
-            baseSettings.limitsUnit: Day
-          secret_fields:
-            apiKey: your_api_key
-        NZBgeek:
-          type: newznab
-          enable: true
-          sync_profile: Standard
-          redirect: false
-          priority: 2
-          query_limit: null
-          grab_limit: null
-          tags: []
-          fields:
-            baseUrl: https://api.nzbgeek.info
-            apiPath: /api
-            additionalParameters: null
-            vipExpiration: ''
-            baseSettings.limitsUnit: Day
-          secret_fields:
-            apiKey: your_api_key
-    proxies:
+          type: sabnzbd
+          host: sabnzbd
+          port: 8080
+          use_ssl: false
+          url_base: null
+          api_key: your_api_key
+          username: null
+          password: null
+          category: prowlarr
+          client_priority: default
+          category_mappings: {}
+    notifications:
       delete_unmanaged: false
       definitions: {}
-  apps:
-    applications:
-      delete_unmanaged: false
-      definitions:
-        Lidarr:
-          type: lidarr
-          prowlarr_url: http://prowlarr:9696
-          base_url: http://lidarr:8686
-          sync_level: full-sync
-          sync_categories:
-          - audio/audiobook
-          - audio/other
-          - audio/mp3
-          - audio/lossless
-          - audio
-          - audio/foreign
-          tags: []
-          api_key: your_api_key
-        Radarr:
-          type: radarr
-          prowlarr_url: http://prowlarr:9696
-          base_url: http://radarr:7878
-          sync_level: full-sync
-          sync_categories:
-          - movies/sd
-          - movies/3d
-          - movies/hd
-          - movies
-          - movies/x265
-          - movies/dvd
-          - movies/other
-          - movies/uhd
-          - movies/foreign
-          - movies/web-dl
-          - movies/bluray
-          tags: []
-          instance_name: null
-          api_key: your_api_key
-        Readarr:
-          type: readarr
-          prowlarr_url: http://prowlarr:9696
-          base_url: http://readarr:8787
-          sync_level: full-sync
-          sync_categories:
-          - audio/audiobook
-          - books/technical
-          - books/foreign
-          - books
-          - books/comics
-          - books/other
-          - books/ebook
-          - books/mags
-          tags: []
-          api_key: your_api_key
-        Sonarr:
-          type: sonarr
-          prowlarr_url: http://prowlarr:9696
-          base_url: http://sonarr:8989
-          sync_level: full-sync
-          sync_categories:
-          - tv
-          - tv/other
-          - tv/foreign
-          - tv/x265
-          - tv/sd
-          - tv/uhd
-          - tv/hd
-          - tv/web-dl
-          tags: []
-          instance_name: null
-          api_key: your_api_key
-          anime_sync_categories:
-          - tv/anime
-          sync_anime_standard_format_search: false
-    sync_profiles:
-      delete_unmanaged: false
-      definitions:
-        Standard:
-          enable_rss: true
-          enable_interactive_search: true
-          enable_automatic_search: true
-          minimum_seeders: 1
-  download_clients:
-    delete_unmanaged: false
-    definitions:
-      SABnzbd:
-        enable: true
-        priority: 1
-        tags: []
-        type: sabnzbd
-        host: sabnzbd
-        port: 8080
+    tags:
+      definitions: []
+    general:
+      host:
+        bind_address: '*'
+        port: 9696
+        ssl_port: 6969
         use_ssl: false
+        ssl_cert_path: null
+        ssl_cert_password: null
         url_base: null
-        api_key: your_api_key
+        instance_name: Prowlarr
+      security:
+        authentication: basic
+        authentication_required: local-disabled
         username: null
         password: null
-        category: prowlarr
-        client_priority: default
-        category_mappings: {}
-  notifications:
-    delete_unmanaged: false
-    definitions: {}
-  tags:
-    definitions: []
-  general:
-    host:
-      bind_address: '*'
-      port: 9696
-      ssl_port: 6969
-      use_ssl: false
-      ssl_cert_path: null
-      ssl_cert_password: null
-      url_base: null
-      instance_name: Prowlarr
-    security:
-      authentication: basic
-      authentication_required: local-disabled
-      username: null
-      password: null
-      certificate_validation: enabled
-    proxy:
-      enable: false
-      proxy_type: http
-      hostname: null
-      port: 8080
-      username: null
-      password: null
-      ignored_addresses: []
-      bypass_proxy_for_local_addresses: true
-    logging:
-      log_level: INFO
-    analytics:
-      send_anonymous_usage_data: true
-    updates:
-      branch: master
-      automatic: false
-      mechanism: docker
-      script_path: null
-    backup:
-      folder: Backups
-      interval: 7
-      retention: 28
-  ui:
-    first_day_of_week: sunday
-    week_column_header: month-first
-    short_date_format: word-month-first
-    long_date_format: month-first
-    time_format: twelve-hour
-    show_relative_dates: true
-    enable_color_impaired_mode: false
-    theme: dark
-    ui_language: en
+        certificate_validation: enabled
+      proxy:
+        enable: false
+        proxy_type: http
+        hostname: null
+        port: 8080
+        username: null
+        password: null
+        ignored_addresses: []
+        bypass_proxy_for_local_addresses: true
+      logging:
+        log_level: INFO
+      analytics:
+        send_anonymous_usage_data: true
+      updates:
+        branch: master
+        automatic: false
+        mechanism: docker
+        script_path: null
+      backup:
+        folder: Backups
+        interval: 7
+        retention: 28
+    ui:
+      first_day_of_week: sunday
+      week_column_header: month-first
+      short_date_format: word-month-first
+      long_date_format: month-first
+      time_format: twelve-hour
+      show_relative_dates: true
+      enable_color_impaired_mode: false
+      theme: dark
+      ui_language: en
 
 radarr:
   # todo make sure to add the prefer repacks field
@@ -250,6 +250,10 @@ radarr:
   api_key: your_api_key
   settings:
     media_management:
+      root_folders:
+        delete_unmanaged: false
+        definitions:
+          - /data/media/movies
       rename_movies: true
       replace_illegal_characters: true
       colon_replacement: delete
@@ -477,21 +481,21 @@ sonarr:
         definitions:
           Release Sources (Streaming Service):
             trash_id: 1B018E0C53EC825085DD911102E2CA36
-          P2P Groups + Repack/Proper:
-            trash_id: 71899E6C303A07AF0E4746EFF9873532
-          Low Quality Groups:
-            trash_id: EBC725268D687D588A20CBC5F97E538B
-          Optionals:
-            trash_id: 76e060895c5b8a765c310933da0a5357
-            filter:
-              include:
-                - ea83f4740cec4df8112f3d6dd7c82751 # Prefer Season Packs
-                - 6f2aefa61342a63387f2a90489e90790 # Dislike renamed/retagged releases
-                - 19cd5ecc0a24bf493a75e80a51974cdd # Dislike retagged/obfuscated groups
-                - 6a7b462c6caee4a991a9d8aa38ce2405 # Dislike release ending: en
-                - 236a3626a07cacf5692c73cc947bc280 # Dislike release containing: 1-
-                - cec8880b847dd5d31d29167ee0112b57 # Ignore 720p/1080p HEVC re-encodes (Golden Rule)
-                - f3f0f3691c6a1988d4a02963e69d11f2 # Ignore The Group -SCENE
-                - 5bc23c3a055a1a5d8bbe4fb49d80e0cb # Ignore so-called scene releases
-                - 538bad00ee6f8aced8e0db5218b8484c # Ignore Bad Dual Audio Groups
-                - 4861d8238f9234606df6721df6e27deb # Ignore AV1
+         P2P Groups + Repack/Proper:
+           trash_id: 71899E6C303A07AF0E4746EFF9873532
+         Low Quality Groups:
+           trash_id: EBC725268D687D588A20CBC5F97E538B
+         Optionals:
+           trash_id: 76e060895c5b8a765c310933da0a5357
+           filter:
+             include:
+               - ea83f4740cec4df8112f3d6dd7c82751 # Prefer Season Packs
+               - 6f2aefa61342a63387f2a90489e90790 # Dislike renamed/retagged releases
+               - 19cd5ecc0a24bf493a75e80a51974cdd # Dislike retagged/obfuscated groups
+               - 6a7b462c6caee4a991a9d8aa38ce2405 # Dislike release ending: en
+               - 236a3626a07cacf5692c73cc947bc280 # Dislike release containing: 1-
+               - cec8880b847dd5d31d29167ee0112b57 # Ignore 720p/1080p HEVC re-encodes (Golden Rule)
+               - f3f0f3691c6a1988d4a02963e69d11f2 # Ignore The Group -SCENE
+               - 5bc23c3a055a1a5d8bbe4fb49d80e0cb # Ignore so-called scene releases
+               - 538bad00ee6f8aced8e0db5218b8484c # Ignore Bad Dual Audio Groups
+               - 4861d8238f9234606df6721df6e27deb # Ignore AV1
