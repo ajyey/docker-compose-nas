@@ -16,7 +16,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Install common packages
 echo "Installing common packages..."
-sudo apt-get install -y make vim git tree curl wgethtop ufw zsh gpg build-essential libssl-dev zlib1g-dev \
+sudo apt-get install -y make vim git tree curl wget htop ufw zsh gpg build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
 libncurses-dev xz-utils tk-dev libffi-dev liblzma-dev
 
