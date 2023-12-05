@@ -244,6 +244,14 @@ prowlarr:
     theme: dark
     ui_language: en
 
+radarr:
+  url_base: null
+  api_key: your_api_key
+  settings:
+    quality:
+      # https://github.com/TRaSH-Guides/Guides/blob/master/docs/json/radarr/quality-size/movie.json
+      trash_id: aed34b9f60ee115dfa7918b742336277
+
 sonarr:
   host: "sonarr"
   port: 8989
