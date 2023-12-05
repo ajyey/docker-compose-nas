@@ -504,12 +504,16 @@ sonarr:
         definitions:
           Release Sources (Streaming Service):
             trash_id: 1B018E0C53EC825085DD911102E2CA36
+            include_preferred_when_renaming: true
           P2P Groups + Repack/Proper:
             trash_id: 71899E6C303A07AF0E4746EFF9873532
+            include_preferred_when_renaming: false
           Low Quality Groups:
             trash_id: EBC725268D687D588A20CBC5F97E538B
+            include_preferred_when_renaming: false
           Optionals:
             trash_id: 76e060895c5b8a765c310933da0a5357
+            include_preferred_when_renaming: false
             filter:
               include:
                 - ea83f4740cec4df8112f3d6dd7c82751 # Prefer Season Packs
