@@ -470,32 +470,55 @@ radarr:
             upgrade_until_custom_format_score: 10000
             language: original
 sonarr:
-  host: "sonarr"
-  port: 8989
-  protocol: "http"
   api_key: your_sonarr_api_key
-  url_base: /sonarr
+  url_base: null
   settings:
+    media_management:
+      root_folders:
+        - "/data/media/tv"
+      rename_episodes: true
+      replace_illegal_characters: true
+      standard_episode_format: '{Series TitleYear} - S{season:00}E{episode:00} - {Episode
+        CleanTitle} [{Preferred Words }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo
+        AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}'
+      daily_episode_format: '{Series TitleYear} - {Air-Date} - {Episode CleanTitle}
+        [{Preferred Words }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo
+        AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}'
+      anime_episode_format: '{Series TitleYear} - S{season:00}E{episode:00} - {absolute:000}
+        - {Episode CleanTitle} [{Preferred Words }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}[{MediaInfo
+        VideoBitDepth}bit]{[MediaInfo VideoCodec]}[{Mediainfo AudioCodec} { Mediainfo
+        AudioChannels}]{MediaInfo AudioLanguages}{-Release Group}'
+      series_folder_format: '{Series TitleYear}'
+      season_folder_format: Season {season:00}
+      specials_folder_format: Specials
+      multiepisode_style: prefixed-range
+      propers_and_repacks: do-not-prefer
+    quality:
+      # Import quality profiles from TRaSH-Guides
+      # https://trash-guides.info/Radarr/Radarr-Quality-Settings-File-Size/
+      # https://github.com/TRaSH-Guides/Guides/blob/master/docs/json/sonarr/quality-size/series.json
+      trash_id: bef99584217af744e404ed44a33af589
     profiles:
       release_profiles:
+        delete_unmanaged: false
         definitions:
           Release Sources (Streaming Service):
             trash_id: 1B018E0C53EC825085DD911102E2CA36
-         P2P Groups + Repack/Proper:
-           trash_id: 71899E6C303A07AF0E4746EFF9873532
-         Low Quality Groups:
-           trash_id: EBC725268D687D588A20CBC5F97E538B
-         Optionals:
-           trash_id: 76e060895c5b8a765c310933da0a5357
-           filter:
-             include:
-               - ea83f4740cec4df8112f3d6dd7c82751 # Prefer Season Packs
-               - 6f2aefa61342a63387f2a90489e90790 # Dislike renamed/retagged releases
-               - 19cd5ecc0a24bf493a75e80a51974cdd # Dislike retagged/obfuscated groups
-               - 6a7b462c6caee4a991a9d8aa38ce2405 # Dislike release ending: en
-               - 236a3626a07cacf5692c73cc947bc280 # Dislike release containing: 1-
-               - cec8880b847dd5d31d29167ee0112b57 # Ignore 720p/1080p HEVC re-encodes (Golden Rule)
-               - f3f0f3691c6a1988d4a02963e69d11f2 # Ignore The Group -SCENE
-               - 5bc23c3a055a1a5d8bbe4fb49d80e0cb # Ignore so-called scene releases
-               - 538bad00ee6f8aced8e0db5218b8484c # Ignore Bad Dual Audio Groups
-               - 4861d8238f9234606df6721df6e27deb # Ignore AV1
+          P2P Groups + Repack/Proper:
+            trash_id: 71899E6C303A07AF0E4746EFF9873532
+          Low Quality Groups:
+            trash_id: EBC725268D687D588A20CBC5F97E538B
+          Optionals:
+            trash_id: 76e060895c5b8a765c310933da0a5357
+            filter:
+              include:
+                - ea83f4740cec4df8112f3d6dd7c82751 # Prefer Season Packs
+                - 6f2aefa61342a63387f2a90489e90790 # Dislike renamed/retagged releases
+                - 19cd5ecc0a24bf493a75e80a51974cdd # Dislike retagged/obfuscated groups
+                - 6a7b462c6caee4a991a9d8aa38ce2405 # Dislike release ending: en
+                - 236a3626a07cacf5692c73cc947bc280 # Dislike release containing: 1-
+                - cec8880b847dd5d31d29167ee0112b57 # Ignore 720p/1080p HEVC re-encodes (Golden Rule)
+                - f3f0f3691c6a1988d4a02963e69d11f2 # Ignore The Group -SCENE
+                - 5bc23c3a055a1a5d8bbe4fb49d80e0cb # Ignore so-called scene releases
+                - 538bad00ee6f8aced8e0db5218b8484c # Ignore Bad Dual Audio Groups
+                - 4861d8238f9234606df6721df6e27deb # Ignore AV1
