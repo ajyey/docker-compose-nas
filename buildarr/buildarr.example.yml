@@ -499,6 +499,22 @@ sonarr:
       # https://github.com/TRaSH-Guides/Guides/blob/master/docs/json/sonarr/quality-size/series.json
       trash_id: bef99584217af744e404ed44a33af589
     profiles:
+      quality_profiles:
+        definitions:
+          # A single profile for both 1080p and 2160p quality
+          # Episodes in 2160 are preferred and episodes in 1080 will be automatically upgraded
+          WEB-DL (1080p/2160p):
+            upgrades_allowed: true
+            qualities:
+            - name: WEB 2160p
+              members:
+              - WEBRip-2160p
+              - WEBDL-2160p
+            - name: WEB 1080p
+              members:
+              - WEBDL-1080p
+              - WEBRip-1080p
+            upgrade_until: WEB 2160p
       release_profiles:
         delete_unmanaged: false
         definitions:
