@@ -48,3 +48,4 @@ docker-compose.override.yml
 /buildarr
 !/buildarr/.gitkeep
 !/buildarr/buildarr.example.yml
+scripts/service-configuration/sabnzbd/config.yml
