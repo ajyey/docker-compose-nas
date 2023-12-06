@@ -514,15 +514,3 @@ sonarr:
           Optionals:
             trash_id: 76e060895c5b8a765c310933da0a5357
             include_preferred_when_renaming: false
-            filter:
-              include:
-                - ea83f4740cec4df8112f3d6dd7c82751 # Prefer Season Packs
-                - 6f2aefa61342a63387f2a90489e90790 # Dislike renamed/retagged releases
-                - 19cd5ecc0a24bf493a75e80a51974cdd # Dislike retagged/obfuscated groups
-                - 6a7b462c6caee4a991a9d8aa38ce2405 # Dislike release ending: en
-                - 236a3626a07cacf5692c73cc947bc280 # Dislike release containing: 1-
-                - cec8880b847dd5d31d29167ee0112b57 # Ignore 720p/1080p HEVC re-encodes (Golden Rule)
-                - f3f0f3691c6a1988d4a02963e69d11f2 # Ignore The Group -SCENE
-                - 5bc23c3a055a1a5d8bbe4fb49d80e0cb # Ignore so-called scene releases
-                - 538bad00ee6f8aced8e0db5218b8484c # Ignore Bad Dual Audio Groups
-                - 4861d8238f9234606df6721df6e27deb # Ignore AV1
