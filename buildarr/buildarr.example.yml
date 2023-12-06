@@ -263,6 +263,7 @@ radarr:
         AudioCodec}{ Mediainfo AudioChannels]}[{Mediainfo VideoCodec}]{-Release Group}'
       movie_folder_format: '{Movie CleanTitle} ({Release Year})'
       propers_and_repacks: do-not-prefer
+      use_hardlinks: true
     quality:
       # Import quality profiles from TRaSH-Guides
       # https://trash-guides.info/Radarr/Radarr-Quality-Settings-File-Size/
@@ -493,6 +494,7 @@ sonarr:
       specials_folder_format: Specials
       multiepisode_style: prefixed-range
       propers_and_repacks: do-not-prefer
+      use_hardlinks: true
     quality:
       # Import quality profiles from TRaSH-Guides
       # https://trash-guides.info/Radarr/Radarr-Quality-Settings-File-Size/
