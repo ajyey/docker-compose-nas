@@ -51,4 +51,5 @@ docker-compose.override.yml
 scripts/service-configuration/sabnzbd/config.yml
 recyclarr/*
 !recyclarr/recyclarr.yml
+!recyclarr/secrets.example.yml
 

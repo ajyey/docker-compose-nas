@@ -242,6 +242,7 @@ prowlarr:
       theme: dark
       ui_language: en
 
+# Set values that recyclarr does not support for both radarr and sonarr
 radarr:
   url_base: null
   api_key: your_api_key
@@ -254,6 +255,7 @@ radarr:
       colon_replacement: delete
       propers_and_repacks: do-not-prefer
       use_hardlinks: true
+
 sonarr:
   api_key: your_sonarr_api_key
   url_base: null
@@ -261,58 +263,7 @@ sonarr:
     media_management:
       root_folders:
         - "/data/media/tv"
-      rename_episodes: true
       replace_illegal_characters: true
-      standard_episode_format: '{Series TitleYear} - S{season:00}E{episode:00} - {Episode
-        CleanTitle} [{Preferred Words }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo
-        AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}'
-      daily_episode_format: '{Series TitleYear} - {Air-Date} - {Episode CleanTitle}
-        [{Preferred Words }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}{[Mediainfo
-        AudioCodec}{ Mediainfo AudioChannels]}{[MediaInfo VideoCodec]}{-Release Group}'
-      anime_episode_format: '{Series TitleYear} - S{season:00}E{episode:00} - {absolute:000}
-        - {Episode CleanTitle} [{Preferred Words }{Quality Full}]{[MediaInfo VideoDynamicRangeType]}[{MediaInfo
-        VideoBitDepth}bit]{[MediaInfo VideoCodec]}[{Mediainfo AudioCodec} { Mediainfo
-        AudioChannels}]{MediaInfo AudioLanguages}{-Release Group}'
-      series_folder_format: '{Series TitleYear}'
-      season_folder_format: Season {season:00}
-      specials_folder_format: Specials
       multiepisode_style: prefixed-range
       propers_and_repacks: do-not-prefer
       use_hardlinks: true
-    quality:
-      # Import quality profiles from TRaSH-Guides
-      # https://trash-guides.info/Radarr/Radarr-Quality-Settings-File-Size/
-      # https://github.com/TRaSH-Guides/Guides/blob/master/docs/json/sonarr/quality-size/series.json
-      trash_id: bef99584217af744e404ed44a33af589
-    profiles:
-      quality_profiles:
-        definitions:
-          # A single profile for both 1080p and 2160p quality
-          # Episodes in 2160 are preferred and episodes in 1080 will be automatically upgraded
-          WEB-DL (1080p/2160p):
-            upgrades_allowed: true
-            qualities:
-            - name: WEB 2160p
-              members:
-              - WEBRip-2160p
-              - WEBDL-2160p
-            - name: WEB 1080p
-              members:
-              - WEBDL-1080p
-              - WEBRip-1080p
-            upgrade_until: WEB 2160p
-      release_profiles:
-        delete_unmanaged: false
-        definitions:
-          Release Sources (Streaming Service):
-            trash_id: 1B018E0C53EC825085DD911102E2CA36
-            include_preferred_when_renaming: true
-          P2P Groups + Repack/Proper:
-            trash_id: 71899E6C303A07AF0E4746EFF9873532
-            include_preferred_when_renaming: false
-          Low Quality Groups:
-            trash_id: EBC725268D687D588A20CBC5F97E538B
-            include_preferred_when_renaming: false
-          Optionals:
-            trash_id: 76e060895c5b8a765c310933da0a5357
-            include_preferred_when_renaming: false
