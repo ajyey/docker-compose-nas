@@ -98,4 +98,4 @@ for service in services:
 # Restart containers
 print("Restarting containers...")
 docker_compose_file = "../../docker-compose.yml"
-os.system(f"sudo docker-compose --file {docker_compose_file} restart radarr sonarr lidarr readarr prowlarr overseerr tautulli sabnzbd homepage")
+os.system(f"sudo docker compose --file {docker_compose_file} restart radarr sonarr lidarr readarr prowlarr overseerr tautulli sabnzbd homepage")
