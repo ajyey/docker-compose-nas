@@ -49,3 +49,6 @@ docker-compose.override.yml
 !/buildarr/.gitkeep
 !/buildarr/buildarr.example.yml
 scripts/service-configuration/sabnzbd/config.yml
+recyclarr/*
+!recyclarr/recyclarr.yml
+

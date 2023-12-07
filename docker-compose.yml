@@ -231,6 +231,19 @@ services:
       - prowlarr
       - sabnzbd
   
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:latest
+    container_name: recyclarr
+    user: 1000:1000
+    volumes:
+      - ./recyclarr:/config
+    environment:
+      - TZ=${TIMEZONE}
+      - RECYCLARR_CREATE_CONFIG=true
+    depends_on:
+      - sonarr
+      - radarr
+  
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
