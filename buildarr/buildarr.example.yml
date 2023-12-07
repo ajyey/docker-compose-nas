@@ -468,6 +468,26 @@ radarr:
             minimum_custom_format_score: 0
             upgrade_until_custom_format_score: 10000
             language: original
+        WEB 2160p:
+          upgrades_allowed: true
+          qualities:
+          - name: WEB 2160p
+            members:
+            - WEBRip-2160p
+            - WEBDL-2160p
+          upgrade_until_quality: WEB 2160p
+          minimum_custom_format_score: 0
+          upgrade_until_custom_format_score: 10000
+          custom_formats: []
+          language: original
+        WEB 1080p:
+          upgrades_allowed: true
+          qualities:
+          - name: WEB 1080p
+            members:
+            - WEBDL-1080p
+            - WEBRip-1080p
+          language: original
 sonarr:
   api_key: your_sonarr_api_key
   url_base: null

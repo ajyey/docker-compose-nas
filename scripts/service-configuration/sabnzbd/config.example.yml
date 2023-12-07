@@ -1,0 +1,27 @@
+# Add as many servers here as you want,
+# but they all must have these properties set
+
+# These are some good defaults to start out with, 
+# but it may change based on your provider
+servers:
+  - name: news.test.com
+    displayname: test
+    host: news.test.com
+    port: 563
+    username: your_usenet_provider_username
+    password: your_usenet_provider_password
+    connections: 50
+    ssl: true
+    priority: 0
+    retention: 0
+    timeout: 60
+    ssl_verify: 2
+    ssl_ciphers: ""
+    required: false
+    optional: false
+    send_group: false
+    expire_date: ""
+    retention: 0
+    quota: ""
+    enable: true
+    notes: ""
