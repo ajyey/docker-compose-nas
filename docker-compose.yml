@@ -215,22 +215,6 @@ services:
       - homepage.widget.url=http://overseerr:5055
       - homepage.widget.key=${OVERSEERR_API_KEY}
   
-  buildarr:
-    image: callum027/buildarr:latest
-    container_name: buildarr
-    restart: always
-    volumes:
-      - ./buildarr:/config:ro
-    environment:
-      TZ: ${TIMEZONE}
-    depends_on:
-      - sonarr
-      - radarr
-      - lidarr
-      - readarr
-      - prowlarr
-      - sabnzbd
-  
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
     container_name: recyclarr
