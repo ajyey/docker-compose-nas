@@ -15,6 +15,7 @@ ENV_EXAMPLE_FILE_PATH = os.path.join(script_dir, '../../.env.example')
 DOCKER_COMPOSE_FILE_PATH = os.path.join(script_dir, '../../docker-compose.yml')
 
 
+
 def extract_api_key_from_xml(config_file):
 	"""Extracts the API key from the specified XML config file."""
 	tree = ET.parse(config_file)
