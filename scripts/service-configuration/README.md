@@ -46,6 +46,6 @@ To get started, perform the following steps:
     - This configuration includes:
       - Setting up indexers and apps in prowlarr (including app sync)
       - Setting up download clients in sonarr and radarr
-- Run `configure-sabnzbd.py`
+- Run `5_configure-sabnzbd.py`
   - This will use the `config.yml` at `service-configuration/sabnzbd/config.yml` to configure Sabnzbd for you.
     - Make sure you use the example provided. At this time setting up your servers is supported.

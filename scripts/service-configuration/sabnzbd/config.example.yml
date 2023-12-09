@@ -24,3 +24,22 @@ servers:
     quota: ""
     enable: true
     notes: ""
+categories:
+  - name: movies
+    dir: movies
+    priority: -100 #Default priority
+  - name: music
+    dir: music
+    priority: -100 #Default priority
+  - name: tv
+    dir: tv
+    priority: -100 #Default priority
+  - name: books
+    dir: books
+    priority: -100 #Default priority
+  - name: tv
+    dir: tv
+    priority: -100 #Default priority
+temporary_download_folder: /data/downloads/incomplete
+download_folder: /data/downloads/complete
+  
