@@ -45,11 +45,8 @@ docker-compose.override.yml
 # Utilities
 /portainer
 !/portainer/.gitkeep
-/buildarr
-!/buildarr/.gitkeep
-!/buildarr/buildarr.example.yml
+buildarr/buildarr-secret.yml
 scripts/service-configuration/sabnzbd/config.yml
 recyclarr/*
 !recyclarr/recyclarr.yml
 !recyclarr/secrets.example.yml
-

@@ -1,0 +1,205 @@
+prowlarr:
+  settings:
+    apps:
+      applications:
+        definitions:
+          Lidarr:
+            base_url: http://lidarr:8686
+            prowlarr_url: http://prowlarr:9696
+            sync_categories:
+            - audio/other
+            - audio/mp3
+            - audio
+            - audio/foreign
+            - audio/audiobook
+            - audio/lossless
+            sync_level: full-sync
+            tags: []
+            type: lidarr
+          Radarr:
+            base_url: http://radarr:7878
+            instance_name: null
+            prowlarr_url: http://prowlarr:9696
+            sync_categories:
+            - movies/foreign
+            - movies/x265
+            - movies/other
+            - movies/hd
+            - movies/3d
+            - movies/bluray
+            - movies
+            - movies/uhd
+            - movies/sd
+            - movies/web-dl
+            - movies/dvd
+            sync_level: full-sync
+            tags: []
+            type: radarr
+          Readarr:
+            base_url: http://readarr:8787
+            prowlarr_url: http://prowlarr:9696
+            sync_categories:
+            - books
+            - books/comics
+            - books/mags
+            - books/ebook
+            - books/foreign
+            - books/other
+            - audio/audiobook
+            - books/technical
+            sync_level: full-sync
+            tags: []
+            type: readarr
+          Sonarr:
+            anime_sync_categories:
+            - tv/anime
+            base_url: http://sonarr:8989
+            instance_name: null
+            prowlarr_url: http://prowlarr:9696
+            sync_anime_standard_format_search: false
+            sync_categories:
+            - tv/web-dl
+            - tv/uhd
+            - tv
+            - tv/sd
+            - tv/hd
+            - tv/x265
+            - tv/foreign
+            - tv/other
+            sync_level: full-sync
+            tags: []
+            type: sonarr
+        delete_unmanaged: false
+      sync_profiles:
+        definitions:
+          Standard:
+            enable_automatic_search: true
+            enable_interactive_search: true
+            enable_rss: true
+            minimum_seeders: 1
+        delete_unmanaged: false
+    download_clients:
+      definitions:
+        sabnzbd:
+          category: prowlarr
+          category_mappings: {}
+          client_priority: default
+          enable: true
+          host: sabnzbd
+          password: null
+          port: 8080
+          priority: 1
+          tags: []
+          type: sabnzbd
+          url_base: null
+          use_ssl: false
+          username: null
+      delete_unmanaged: false
+    general:
+      analytics:
+        send_anonymous_usage_data: true
+      backup:
+        folder: Backups
+        interval: 7
+        retention: 28
+      host:
+        bind_address: '*'
+        instance_name: Prowlarr
+        port: 9696
+        ssl_cert_password: null
+        ssl_cert_path: null
+        ssl_port: 6969
+        url_base: null
+        use_ssl: false
+      logging:
+        log_level: INFO
+      proxy:
+        bypass_proxy_for_local_addresses: true
+        enable: false
+        hostname: null
+        ignored_addresses: []
+        password: null
+        port: 8080
+        proxy_type: http
+        username: null
+      security:
+        authentication: basic
+        authentication_required: local-disabled
+        certificate_validation: enabled
+        password: null
+        username: null
+      updates:
+        automatic: false
+        branch: master
+        mechanism: docker
+        script_path: null
+    indexers:
+      indexers:
+        definitions:
+          DrunkenSlug:
+            enable: true
+            fields:
+              apiPath: /api
+              baseUrl: https://drunkenslug.com
+            priority: 3
+            redirect: false
+            sync_profile: Standard
+            type: newznab
+          NZBgeek:
+            enable: true
+            fields:
+              additionalParameters: null
+              apiPath: /api
+              baseSettings.limitsUnit: Day
+              baseUrl: https://api.nzbgeek.info
+              vipExpiration: ''
+            grab_limit: null
+            priority: 2
+            query_limit: null
+            redirect: false
+            sync_profile: Standard
+            tags: []
+            type: newznab
+          NinjaCentral:
+            enable: true
+            fields:
+              additionalParameters: null
+              apiPath: /api
+              baseSettings.limitsUnit: Day
+              baseUrl: https://ninjacentral.co.za
+              vipExpiration: ''
+            grab_limit: null
+            priority: 1
+            query_limit: null
+            redirect: false
+            sync_profile: Standard
+            tags: []
+            type: newznab
+          altHUB:
+            enable: true
+            fields:
+              apiPath: /api
+              baseUrl: https://api.althub.co.za
+            priority: 25
+            redirect: false
+            sync_profile: Standard
+            type: newznab
+        delete_unmanaged: false
+      proxies:
+        definitions: {}
+        delete_unmanaged: false
+    notifications:
+      definitions: {}
+      delete_unmanaged: false
+    tags:
+      definitions: []
+    ui:
+      enable_color_impaired_mode: false
+      first_day_of_week: sunday
+      long_date_format: month-first
+      short_date_format: word-month-first
+      show_relative_dates: true
+      theme: dark
+      time_format: twelve-hour
+      ui_language: en
+      week_column_header: month-first

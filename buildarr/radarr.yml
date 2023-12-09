@@ -1,0 +1,31 @@
+radarr:
+  settings:
+    media_management:
+      colon_replacement: delete
+      propers_and_repacks: do-not-prefer
+      replace_illegal_characters: true
+      root_folders:
+        definitions:
+        - /data/media/movies
+      use_hardlinks: true
+    download_clients:
+      enable_completed_download_handling: true
+      redownload_failed: true
+      definitions:
+        sabnzbd:
+          enable: true
+          type: "sabnzbd"
+          priority: 1
+          remove_completed_downloads: true
+          remove_failed_downloads: true
+          tags: []
+          hostname: sabnzbd
+          port: 8080
+          use_ssl: false
+          url_base: /
+          category: movies
+          recent_priority: default
+          older_priority: default
+      remote_path_mappings:
+        definitions: []
+
