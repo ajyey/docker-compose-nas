@@ -1,0 +1,18 @@
+includes:
+  - buildarr-secret.yml
+  - radarr.yml
+  - sonarr.yml
+  - prowlarr.yml
+
+buildarr:
+  update_days:
+  - monday
+  - tuesday
+  - wednesday
+  - thursday
+  - friday
+  - saturday
+  - sunday
+  update_times:
+  - 03:00
+  watch_config: false

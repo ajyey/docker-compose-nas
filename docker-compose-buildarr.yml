@@ -1,8 +1,14 @@
-buildarr:
-  image: callum027/buildarr:latest
-  container_name: buildarr
-  restart: always
-  volumes:
-    - ./buildarr:/config:ro
-  environment:
-    TZ: ${TIMEZONE}
+version: "3.9"
+
+networks:
+  default:
+    name: docker-compose-nas
+services:
+  buildarr:
+    image: callum027/buildarr:latest
+    container_name: buildarr
+    restart: always
+    volumes:
+      - ./buildarr:/config:ro
+    environment:
+      TZ: ${TIMEZONE}

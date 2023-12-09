@@ -15,6 +15,7 @@ ENV_EXAMPLE_FILE_PATH = os.path.join(script_dir, '../../.env.example')
 DOCKER_COMPOSE_FILE_PATH = os.path.join(script_dir, '../../docker-compose.yml')
 
 
+
 def extract_api_key_from_xml(config_file):
 	"""Extracts the API key from the specified XML config file."""
 	tree = ET.parse(config_file)
@@ -97,16 +98,9 @@ services = [
 for service in services:
 	service['config_path'] = os.path.join(script_dir, service['config_path'])
 
-# If the env file does not exist, create it by copying the .env.example file
-if not os.path.exists(ENV_FILE_PATH):
-	logging.warning('No.env file found. Creating one from the.env.example file.')
-	with open(ENV_FILE_PATH, 'w') as f:
-		with open(ENV_EXAMPLE_FILE_PATH, 'r') as f_example:
-			f.write(f_example.read())
-
 # Update .env file for each service
 for service in services:
-	print(f"Updating {service['name']} configuration...")
+	print(f"Updating {service['name']} API key in .env file...")
 	if file_exists(service['config_path']):
 		api_key = service['extract_func'](service['config_path'])
 		update_env_file(f"{service['name']}_API_KEY", api_key, quote=service.get('quote', False))

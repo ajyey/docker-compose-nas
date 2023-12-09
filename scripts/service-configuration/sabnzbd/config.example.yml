@@ -1,7 +1,7 @@
 # Add as many servers here as you want,
 # but they all must have these properties set
 
-# These are some good defaults to start out with, 
+# These are some good defaults to start out with,
 # but it may change based on your provider
 servers:
   - name: news.test.com
@@ -21,7 +21,25 @@ servers:
     optional: false
     send_group: false
     expire_date: ""
-    retention: 0
     quota: ""
     enable: true
     notes: ""
+categories:
+  - name: movies
+    dir: movies
+    priority: -100 #Default priority
+  - name: music
+    dir: music
+    priority: -100 #Default priority
+  - name: tv
+    dir: tv
+    priority: -100 #Default priority
+  - name: books
+    dir: books
+    priority: -100 #Default priority
+  - name: tv
+    dir: tv
+    priority: -100 #Default priority
+temporary_download_folder: /data/downloads/incomplete
+download_folder: /data/downloads/complete
+  
