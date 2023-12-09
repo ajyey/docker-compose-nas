@@ -100,7 +100,7 @@ for service in services:
 
 # Update .env file for each service
 for service in services:
-	print(f"Updating {service['name']} configuration...")
+	print(f"Updating {service['name']} API key in .env file...")
 	if file_exists(service['config_path']):
 		api_key = service['extract_func'](service['config_path'])
 		update_env_file(f"{service['name']}_API_KEY", api_key, quote=service.get('quote', False))
@@ -110,7 +110,3 @@ print("Restarting containers...")
 os.system(
 	f"sudo docker compose --file {DOCKER_COMPOSE_FILE_PATH} restart radarr sonarr lidarr readarr prowlarr overseerr "
 	f"tautulli sabnzbd homepage")
-
-# todo
-# set the api keys for the buildarr config file
-# set the api keys for the recyclarr secrets file
