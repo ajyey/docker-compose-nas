@@ -10,72 +10,89 @@ radarr:
     # Set the URL/API Key to your actual instance
     base_url: http://radarr:7878
     api_key: !secret RADARR_API_KEY
-    # Which quality definition in the guide to sync to Radarr. Only choice right now is 'movie'
-    quality_definition:
-      type: movie
     # Set to 'true' to automatically remove custom formats from Radarr when they are removed from
     # the guide or your configuration. This will NEVER delete custom formats you manually created!
     delete_old_custom_formats: true
     include:
-      # Templates for Remux + 2160p
-      # https://trash-guides.info/Radarr/radarr-setup-quality-profiles/#remux-web-2160p
-      - template: radarr-quality-definition-movie
-      - template: radarr-quality-profile-remux-web-2160p
-      - template: radarr-custom-formats-remux-web-2160p
-      # Templates for UHD Bluray + WEB
-      - template: radarr-quality-profile-uhd-bluray-web
-      - template: radarr-custom-formats-uhd-bluray-web
-      # Templates for Remux + WEB 1080p
-      - template: radarr-quality-profile-remux-web-1080p
-      - template: radarr-custom-formats-remux-web-1080p
-      # Templates for HD Bluray + WEB
-      - template: radarr-quality-profile-hd-bluray-web
-      - template: radarr-custom-formats-hd-bluray-web
+      - template: radarr-quality-definition-sqp-uhd
+      - template: radarr-quality-profile-sqp-2
+      - template: radarr-custom-formats-sqp-2
+      - template: radarr-quality-profile-sqp-3
+      - template: radarr-custom-formats-sqp-3
+      - template: radarr-quality-profile-sqp-4
+      - template: radarr-custom-formats-sqp-4
+      - template: radarr-quality-profile-sqp-5
+      - template: radarr-custom-formats-sqp-5
     custom_formats:
-      - trash_ids:
-          # Audio
-          - 496f355514737f7d83bf7aa4d24f8169 # TrueHD Atmos
-          - 2f22d89048b01681dde8afe203bf2e95 # DTS X
-          - 417804f7f2c4308c1f4c5d380d4c4475 # ATMOS (undefined)
-          - 1af239278386be2919e1bcee0bde047e # DD+ ATMOS
-          - 3cafb66171b47f226146a0770576870f # TrueHD
-          - dcf3ec6938fa32445f590a4da84256cd # DTS-HD MA
-          - a570d4a0e56a2874b64e5bfa55202a1b # FLAC
-          - e7c2fcae07cbada050a0af3357491d7b # PCM
-          - 8e109e50e0a0b83a5098b056e13bf6db # DTS-HD HRA
-          - 185f1dd7264c4562b9022d963ac37424 # DD+
-          - f9f847ac70a0af62ea4a08280b859636 # DTS-ES
-          - 1c1a4c5e823891c75bc50380a6866f73 # DTS
-          - 240770601cc226190c367ef59aba7463 # AAC
-          - c2998bd0d90ed5621d8df281e839436e # DD
-        quality_profiles:
-          - name: Remux + WEB 2160p
-          - name: UHD Bluray + WEB
-          - name: Remux + WEB 1080p
       # Movie Versions
       - trash_ids:
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
         quality_profiles:
-          - name: Remux + WEB 2160p
-          - name: UHD Bluray + WEB
-          - name: Remux + WEB 1080p
-          - name: HD Bluray + WEB
+          - name: SQP-2
+          - name: SQP-3
+          - name: SQP-4
+          - name: SQP-5
             # score: 0 # Uncomment this line to disable prioritised IMAX Enhanced releases
+
+      # Misc
+      - trash_ids:
+          - 2899d84dc9372de3408e6d8cc18e9666 # x264
+        quality_profiles:
+          - name: SQP-2
+          - name: SQP-3
+          - name: SQP-4
+          - name: SQP-5
+            # score: 0 # Uncomment this line to enable x264 releases
+
+      # Unwanted
+      - trash_ids:
+          # Uncomment the next six lines to block all x265 HD releases
+          - 839bea857ed2c0a8e084f3cbdbd65ecb # x265 (no HDR/DV)
+        quality_profiles:
+          - name: SQP-2
+            score: 0
+          - name: SQP-3
+            score: 0
+          - name: SQP-4
+            score: 0
+          - name: SQP-5
+            score: 0
+      - trash_ids:
+          - dc98083864ea246d05a42df0d05f81cc # x265 (HD)
+        quality_profiles:
+          - name: SQP-2
+          - name: SQP-3
+          - name: SQP-4
+          - name: SQP-5
+
       # Optional
       - trash_ids:
+          # Uncomment any of the following if you want them to be added to the quality profile
+          - b6832f586342ef70d9c128d40c07b872 # Bad Dual Groups
           # Comment out the next line if you and all of your users' setups are fully DV compatible
           - 923b6abef9b17f937fab56cfcf89e1f1 # DV (WEBDL)
-          # HDR10Plus Boost - Uncomment the next line if any of your devices DO support HDR10+
-          # - b17886cb4158d9fea189859409975758 # HDR10Plus Boost
+          # Uncomment the below line if you have a setup that supports HDR10+
+          # - b17886cb4158d9fea189859409975758 # HDR10+ Boost
+          - 90cedc1fea7ea5d11298bebd3d1d3223 # EVO (no WEBDL)
+          - ae9b7c9ebde1f3bd336a8cbd1ec4c5e5 # No-RlsGroup
+          - 7357cf5161efbf8c4d5d0c30b4815ee2 # Obfuscated
+          - 5c44f52a8714fdd79bb4d98e2673be1f # Retags
+          - f537cf427b64c38c8e36298f657e4828 # Scene
+          - f700d29429c023a5734505e77daeaea7 # DV (FEL)
         quality_profiles:
-          - name: Remux + WEB 2160p
-          - name: UHD Bluray + WEB
+          - name: SQP-2
+          - name: SQP-3
+          - name: SQP-4
+          - name: SQP-5
+
       - trash_ids:
           - 9c38ebb7384dada637be8899efa68e6f # SDR
         quality_profiles:
-          - name: Remux + WEB 2160p
-          - name: UHD Bluray + WEB
-            # score: 0 # Uncomment this line to allow SDR releases
+          - name: SQP-2
+          - name: SQP-3
+          - name: SQP-4
+          - name: SQP-5
+            # score: 0 # Uncomment this line to enable SDR releases
 sonarr:
   tv:
     base_url: http://sonarr:8989
