@@ -50,3 +50,6 @@ scripts/service-configuration/sabnzbd/config.yml
 recyclarr/*
 !recyclarr/recyclarr.yml
 !recyclarr/secrets.example.yml
+immich/*
+!immich/docker-compose.yml
+!immich/.env.example
