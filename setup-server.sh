@@ -16,7 +16,8 @@ sudo apt update && sudo apt upgrade -y
 
 # Install common packages
 echo "Installing common packages..."
-sudo apt-get install -y make vim git tree curl wget htop ufw zsh gpg build-essential libssl-dev zlib1g-dev \
+sudo apt-get install -y make vim git tree curl samba netatalk nfs-common \
+wget htop ufw zsh gpg build-essential libssl-dev zlib1g-dev \
 libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
 libncurses-dev xz-utils tk-dev libffi-dev liblzma-dev
 
@@ -102,9 +103,13 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Add the current user to the Docker group
 echo "Adding user to the Docker group..."
 sudo usermod -aG docker $USER
-
-# Output Docker and Docker Compose versions
 echo "Docker and Docker Compose installed"
+
+# Install cockpit
+echo "Installing cockpit..."
+. /etc/os-release
+sudo apt install -t ${VERSION_CODENAME}-backports cockpit -y
+
 echo "Home server setup script has completed."
 echo "You will need to log out and back in for the usermod and default shell changes to take effect."
 echo "You can source ~/.zshrc to reload the shell."
