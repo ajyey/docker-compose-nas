@@ -166,6 +166,9 @@ services:
       - homepage.href=http://${HOMEPAGE_HREF}:8080
       - homepage.description=Usenet downloader
       - homepage.weight=6
+      - homepage.widget.type=sabnzbd
+      - homepage.widget.url=http://sabnzbd:8080
+      - homepage.widget.key=${SABNZBD_API_KEY}
   readarr:
     image: lscr.io/linuxserver/readarr:nightly
     container_name: readarr
@@ -298,7 +301,7 @@ services:
       - PGID=${GROUP_ID}
       - TZ=${TIMEZONE}
       - VERSION=docker
-      # - PLEX_CLAIM=claim-sprerScPGnha1z4mKdr7 #optional
+      - PLEX_CLAIM=claim-szfm3vtgLhoUsXGESXRn #optional
     volumes:
       - ./plex:/config
       - ./plex/transcode:/transcode # Replace with the path to your transcode directory
