@@ -51,5 +51,4 @@ recyclarr/*
 !recyclarr/recyclarr.yml
 !recyclarr/secrets.example.yml
 immich/*
-!immich/docker-compose.yml
-!immich/.env.example
+!immich/hwaccel.yml
