@@ -95,50 +95,59 @@ sonarr:
   tv:
     base_url: http://sonarr:8989
     api_key: !secret SONARR_API_KEY
-    quality_definition:
-      type: series
-      preferred_ratio: 0.5
-    media_naming:
-      series: default
-      season: default
-      episodes:
-        rename: true
-        standard: default
-        daily: default
-        anime: default
-    # Release Profile Configuration
-    release_profiles:
+    include:
+      # Comment out any of the following includes to disable them
+      - template: sonarr-quality-definition-series
+      - template: sonarr-v4-quality-profile-web-1080p
+      - template: sonarr-v4-custom-formats-web-1080p
+      - template: sonarr-v4-quality-profile-web-2160p
+      - template: sonarr-v4-custom-formats-web-2160p
+    custom_formats:
+      # HDR Formats
       - trash_ids:
-          - EBC725268D687D588A20CBC5F97E538B # Low Quality Groups
-          - 1B018E0C53EC825085DD911102E2CA36 # Release Sources (Streaming Service)
-          - 71899E6C303A07AF0E4746EFF9873532 # P2P Groups + Repack/Proper
-        strict_negative_scores: false
-        tags: [tv]
-      - trash_ids: [76e060895c5b8a765c310933da0a5357] # Optionals
-        tags: [tv]
+          # Comment out the next line if you and all of your users' setups are fully DV compatible
+          # - 9b27ab6498ec0f31a3353992e19434ca # DV (WEBDL)
+          # HDR10Plus Boost - Uncomment the next line if any of your devices DO support HDR10+
+          # - 0dad0a507451acddd754fe6dc3a7f5e7 # HDR10Plus Boost
+        quality_profiles:
+          - name: WEB-2160p
+      # Optional
+      - trash_ids:
+          - 32b367365729d530ca1c124a0b180c64 # Bad Dual Groups
+          - 82d40da2bc6923f41e14394075dd4b03 # No-RlsGroup
+          - e1a997ddb54e3ecbfe06341ad323c458 # Obfuscated
+          - 06d66ab109d4d2eddb2794d21526d140 # Retags
+          - 1b3994c551cbb92a2c781af061f4ab44 # Scene
+        quality_profiles:
+          - name: WEB-1080p
+          - name: WEB-2160p
+      #  - trash_ids:
+          # Uncomment the next six lines to allow x265 HD releases with HDR/DV
+          # - 47435ece6b99a0b477caf360e79ba0bb # x265 (HD)
+        # quality_profiles:
+          # - name: WEB-2160p
+            # score: 0
+      # - trash_ids:
+          # - 9b64dff695c2115facf1b6ea59c9bd07 # x265 (no HDR/DV)
+        # quality_profiles:
+        #   - name: WEB-1080p
+        #   - name: WEB-2160p
+      - trash_ids:
+          - 2016d1676f5ee13a5b7257ff86ac9a93 # SDR
+        quality_profiles:
+          - name: WEB-2160p
+            # score: 0 # Uncomment this line to enable SDR releases
+    # Create a new quality profile for 1080p and 2160p releases
     quality_profiles:
-      - name: WEB-DL (1080p)
-        upgrade:
-          allowed: true
-          until_quality: WEB 1080p
-        qualities:
-          - name: WEB 1080p
-            qualities:
-              - WEBDL-1080p
-              - WEBRip-1080p
-      - name: WEB-DL (2160p)
+      - name: WEB-1080p/WEB-2160p
+        reset_unmatched_scores:
+          enabled: true
         upgrade:
           allowed: true
           until_quality: WEB 2160p
-        qualities:
-          - name: WEB 2160p
-            qualities:
-              - WEBDL-2160p
-              - WEBRip-2160p
-      - name: WEB-DL (1080p/2160p)
-        upgrade:
-          allowed: true
-          until_quality: WEB 2160p
+          until_score: 10000
+        min_format_score: 0
+        quality_sort: top
         qualities:
           - name: WEB 1080p
             qualities:
