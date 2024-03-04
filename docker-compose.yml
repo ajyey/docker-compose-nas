@@ -60,6 +60,7 @@ services:
       # In this case, the sonarr service can be reached at http://sonarr:8989 from any other service within the same Docker network.
       - homepage.widget.url=http://sonarr:8989
       - homepage.widget.key=${SONARR_API_KEY}
+
   radarr:
     image: lscr.io/linuxserver/radarr
     container_name: radarr
@@ -87,6 +88,7 @@ services:
       - homepage.widget.type=radarr
       - homepage.widget.url=http://radarr:7878
       - homepage.widget.key=${RADARR_API_KEY}
+
   lidarr:
     image: lscr.io/linuxserver/lidarr
     container_name: lidarr
@@ -114,6 +116,7 @@ services:
       - homepage.widget.type=lidarr
       - homepage.widget.url=http://lidarr:8686
       - homepage.widget.key=${LIDARR_API_KEY}
+
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
@@ -146,6 +149,7 @@ services:
       - readarr
       - lidarr
       - sabnzbd
+
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
@@ -428,78 +432,4 @@ services:
     volumes:
       - ./docs:/docs:ro
 
-  # Immich
-  immich-server:
-    container_name: immich_server
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    command: [ "start.sh", "immich" ]
-    volumes:
-      - ${UPLOAD_LOCATION}:/usr/src/app/upload
-      - /etc/localtime:/etc/localtime:ro
-    env_file:
-      - .env
-    ports:
-      - 2283:3001
-    depends_on:
-      - redis
-      - database
-    restart: always
-    labels:
-      - homepage.group=Media
-      - homepage.name=Immich
-      - homepage.icon=immich.png
-      - homepage.href=http://${HOMEPAGE_HREF}:2283
-      - homepage.description=Photo backup
-      - homepage.weight=2
-      - homepage.widget.type=immich
-      - homepage.widget.url=http://immich:2283
-      - homepage.widget.key=${IMMICH_API_KEY}
-
-  immich-microservices:
-    container_name: immich_microservices
-    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
-    extends:
-      file: ./immich/hwaccel.yml
-      service: immich-hwaccel
-    command: [ "start.sh", "microservices" ]
-    volumes:
-      - ${UPLOAD_LOCATION}:/usr/src/app/upload
-      - /etc/localtime:/etc/localtime:ro
-    env_file:
-      - .env
-    depends_on:
-      - redis
-      - database
-    restart: always
-
-  immich-machine-learning:
-    container_name: immich_machine_learning
-    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION:-release}
-    volumes:
-      - ./immich/model-cache:/cache
-    env_file:
-      - .env
-    restart: always
-
-  redis:
-    container_name: immich_redis
-    image: redis:6.2-alpine@sha256:60e49e22fa5706cd8df7d5e0bc50ee9bab7c608039fa653c4d961014237cca46
-    restart: always
-
-  database:
-    container_name: immich_postgres
-    image: tensorchord/pgvecto-rs:pg14-v0.1.11
-    env_file:
-      - .env
-    environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_DB: ${DB_DATABASE_NAME}
-    volumes:
-      - ./immich/pgdata:/var/lib/postgresql/data
-    restart: always
-
-volumes:
-  pgdata:
-  model-cache:
 
