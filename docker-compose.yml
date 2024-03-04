@@ -262,29 +262,6 @@ services:
       - homepage.href=http://${HOMEPAGE_HREF}:32400
       - homepage.weight=6
 
-  tautulli:
-    image: lscr.io/linuxserver/tautulli:latest
-    container_name: tautulli
-    environment:
-      - PUID=${USER_ID}
-      - PGID=${GROUP_ID}
-      - TZ=${TIMEZONE}
-    volumes:
-      - ./tautulli/config:/config
-    ports:
-      - 8181:8181
-    restart: unless-stopped
-    labels:
-      - homepage.group=Media
-      - homepage.name=Tautulli
-      - homepage.icon=tautulli.png
-      - homepage.widget.type=tautulli
-      - homepage.widget.url=http://tautulli:8181
-      - homepage.widget.key=${TAUTULLI_API_KEY}
-      - homepage.description=Monitor your Plex Media Server
-      - homepage.href=http://${HOMEPAGE_HREF}:8181
-      - homepage.weight=6
-
   
   # Gluetun - VPN Client for Docker Containers and More
   # https://www.smarthomebeginner.com/gluetun-docker-guide/
