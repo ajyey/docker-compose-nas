@@ -29,7 +29,7 @@ radarr:
           - 9f6cbff8cfe4ebbc1bde14c7b7bec0de # IMAX Enhanced
         quality_profiles:
           - name: SQP-2
-          # - name: SQP-3
+          - name: SQP-3
           - name: SQP-4
           - name: SQP-5
             # score: 0 # Uncomment this line to disable prioritised IMAX Enhanced releases
