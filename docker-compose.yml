@@ -234,7 +234,17 @@ services:
     depends_on:
       - sonarr
       - radarr
-
+  webdav:
+    image: bytemark/webdav
+    container_name: webdav
+    volumes:
+      - ./webdav:/var/lib/dav
+    environment:
+      - AUTH_TYPE=Digest
+      - USERNAME={WEBDAV_USERNAME}
+      - PASSWORD={WEBDAV_PASSWORD}
+    ports:
+      - "80:80"
   
   plex:
     image: lscr.io/linuxserver/plex:latest
