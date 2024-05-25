@@ -5,6 +5,23 @@ networks:
     name: docker-compose-nas
 
 services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=${USER_ID} # Ensure you have USER_ID defined in your environment
+      - USER_GID=${GROUP_ID} # Ensure you have GROUP_ID defined in your environment
+      - DB_TYPE=sqlite3
+    restart: always
+    networks:
+      - default
+    volumes:
+      - ./gitea/data:/data # Gitea data volume
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3001:3000" # Gitea web interface
+      - "222:22"    # SSH port (change if 22 is used on your host)
   # Homepage - Dashboard
   # https://github.com/gethomepage/homepage
   homepage:
