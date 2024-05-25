@@ -52,3 +52,5 @@ recyclarr/*
 !recyclarr/secrets.example.yml
 immich/*
 !immich/hwaccel.yml
+webdav/*
+!webdav/.gitkeep
