@@ -54,3 +54,11 @@ immich/*
 !immich/hwaccel.yml
 webdav/*
 !webdav/.gitkeep
+gitea/*
+!gitea/.gitkeep
+audiobookshelf/*
+!audiobookshelf/.gitkeep
+homebridge/*
+!homebridge/.gitkeep
+navidrome/*
+!navidrome/.gitkeep

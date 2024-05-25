@@ -241,10 +241,10 @@ services:
       - ./webdav:/var/lib/dav
     environment:
       - AUTH_TYPE=Digest
-      - USERNAME={WEBDAV_USERNAME}
-      - PASSWORD={WEBDAV_PASSWORD}
+      - USERNAME=${WEBDAV_USERNAME}
+      - PASSWORD=${WEBDAV_PASSWORD}
     ports:
-      - "80:80"
+      - "8082:80"
   
   # Gluetun - VPN Client for Docker Containers and More
   # https://www.smarthomebeginner.com/gluetun-docker-guide/
