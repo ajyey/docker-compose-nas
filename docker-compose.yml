@@ -251,6 +251,30 @@ services:
     depends_on:
       - sonarr
       - radarr
+  homebridge:
+    image: homebridge/homebridge:latest
+    container_name: homebridge
+    restart: always
+    network_mode: host
+    volumes:
+      - ./homebridge:/homebridge
+    logging:
+      driver: json-file
+      options:
+        max-size: "10mb"
+        max-file: "1"
+    labels:
+      - homepage.group=Smart Home
+      - homepage.name=Homebridge
+      - homepage.icon=homebridge.png
+      - homepage.description=Homebridge
+      - homepage.widget.type=homebridge
+      - homepage.widget.url=http://homebridge:${HOMEBRIDGE_PORT}
+      - homepage.widget.username=${HOMEBRIDGE_USER}
+      - homepage.widget.password=${HOMEBRIDGE_PASSWORD}
+      - homepage.href=http://${HOMEPAGE_HREF}:${HOMEBRIDGE_PORT}
+      - homepage.weight=6
+      
   webdav:
     image: bytemark/webdav
     container_name: webdav
