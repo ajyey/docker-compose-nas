@@ -285,7 +285,7 @@ services:
       
   webdav:
     image: bytemark/webdav
-    container_name: webdav
+    container_name: devonthink-sync-webdav
     volumes:
       - ./webdav:/var/lib/dav
     environment:
