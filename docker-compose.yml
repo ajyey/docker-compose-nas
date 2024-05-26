@@ -20,6 +20,16 @@ services:
     ports:
       - "3001:3000" # Gitea web interface
       - "222:22"    # SSH port (change if 22 is used on your host)
+    labels:
+      - homepage.group=Development
+      - homepage.name=Gitea
+      - homepage.icon=gitea.png
+      - homepage.href=http://${HOMEPAGE_HREF}:3001
+      - homepage.description=Git
+      - homepage.weight=0
+      - homepage.widget.type=gitea
+      - homepage.widget.url=http://gitea:3001
+      - homepage.widget.key=${GITEA_API_KEY}
   # Homepage - Dashboard
   # https://github.com/gethomepage/homepage
   homepage:
