@@ -28,10 +28,14 @@ services:
       - homepage.description=Git
       - homepage.weight=0
       - homepage.widget.type=gitea
-      - homepage.widget.url=http://gitea:3001
+      - homepage.widget.url=http://gitea:3000
       - homepage.widget.key=${GITEA_API_KEY}
-  # Homepage - Dashboard
-  # https://github.com/gethomepage/homepage
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -198,15 +202,21 @@ services:
       - homepage.widget.type=sabnzbd
       - homepage.widget.url=http://sabnzbd:8080
       - homepage.widget.key=${SABNZBD_API_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api?mode=version"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   readarr:
     image: lscr.io/linuxserver/readarr:nightly
     container_name: readarr
     ports:
       - "8787:8787" # Readarr Web UI
     environment:
-      - PUID=${USER_ID} # Replace with your user ID
-      - PGID=${GROUP_ID} # Replace with your group ID
-      - TZ=${TIMEZONE} # Replace with your timezone
+      - PUID=${USER_ID}
+      - PGID=${GROUP_ID}
+      - TZ=${TIMEZONE}
     volumes:
       - ./readarr:/config
       - ${DATA_ROOT}:/data
@@ -221,6 +231,11 @@ services:
       - homepage.widget.type=readarr
       - homepage.widget.url=http://readarr:8787
       - homepage.widget.key=${READARR_API_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8787/api/v1/system/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
@@ -246,6 +261,11 @@ services:
       - homepage.widget.type=overseerr
       - homepage.widget.url=http://overseerr:5055
       - homepage.widget.key=${OVERSEERR_API_KEY}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5055/api/v1/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr:latest
@@ -259,6 +279,7 @@ services:
     depends_on:
       - sonarr
       - radarr
+
   homebridge:
     image: homebridge/homebridge:latest
     container_name: homebridge
@@ -282,6 +303,11 @@ services:
       - homepage.widget.password=${HOMEBRIDGE_PASSWORD}
       - homepage.href=http://${HOMEPAGE_HREF}:${HOMEBRIDGE_PORT}
       - homepage.weight=6
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${HOMEBRIDGE_PORT}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
       
   webdav:
     image: bytemark/webdav
@@ -294,6 +320,43 @@ services:
       - PASSWORD=${WEBDAV_PASSWORD}
     ports:
       - "8082:80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  lobe-chat:
+    image: lobehub/lobe-chat
+    container_name: lobe-chat
+    restart: always
+    ports:
+      - '3210:3210'
+    environment:
+      ACCESS_CODE: lobe66
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3210"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  freshrss:
+    image: lscr.io/linuxserver/freshrss:latest
+    container_name: freshrss
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./freshrss/config:/config
+    ports:
+      - 8083:80
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   
   plex:
     image: lscr.io/linuxserver/plex:latest
@@ -308,7 +371,7 @@ services:
       - PLEX_CLAIM=claim-szfm3vtgLhoUsXGESXRn #optional
     volumes:
       - ./plex:/config
-      - ./plex/transcode:/transcode # Replace with the path to your transcode directory
+      - ./plex/transcode:/transcode
       - ${DATA_ROOT}/media:/data/media
     restart: unless-stopped
     # devices:
@@ -320,6 +383,11 @@ services:
       - homepage.description=Media Server
       - homepage.href=http://${HOMEPAGE_HREF}:32400
       - homepage.weight=6
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:32400/web/index.html"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   tautulli:
     image: lscr.io/linuxserver/tautulli:latest
@@ -343,6 +411,11 @@ services:
       - homepage.description=Monitor your Plex Media Server
       - homepage.href=http://${HOMEPAGE_HREF}:8181
       - homepage.weight=6
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8181/api/v2?cmd=status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   # Gluetun - VPN Client for Docker Containers and More
   # https://www.smarthomebeginner.com/gluetun-docker-guide/
@@ -463,13 +536,27 @@ services:
     image: containrrr/watchtower
     container_name: watchtower
     restart: always
+    ports:
+      - "8084:8080"
     environment:
       - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_TRACE=true
+      - WATCHTOWER_HTTP_API_UPDATE=true
+      - WATCHTOWER_HTTP_API_PERIODIC_POLLS=true
+      - WATCHTOWER_HTTP_API_TOKEN=${WATCHTOWER_API_TOKEN}
+      - WATCHTOWER_HTTP_API_METRICS=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+    - homepage.group=Utilities
+    - homepage.name=Watchtower
+    - homepage.description=Auto update containers
+    - homepage.icon=watchtower.png
+    - homepage.href=http://${HOMEPAGE_HREF}:8084
+    - homepage.widget.type=watchtower
+    - homepage.widget.url=http://watchtower:8080
+    - homepage.widget.key=${WATCHTOWER_API_TOKEN}
 
-  # Autoheal - Auto restart unhealthy containers
-  # https://github.com/willfarrell/docker-autoheal
   autoheal:
     image: willfarrell/autoheal:latest
     container_name: autoheal
@@ -478,6 +565,10 @@ services:
       - AUTOHEAL_CONTAINER_LABEL=all
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=Autoheal
+      - homepage.description=Auto restart unhealthy containers
 
   # Home Server docs
   # https://squidfunk.github.io/mkdocs-material/
@@ -489,5 +580,13 @@ services:
     restart: unless-stopped
     volumes:
       - ./docs:/docs:ro
-
-
+    labels:
+      - homepage.group=Development
+      - homepage.name=MkDocs
+      - homepage.description=Home Server docs
+      - homepage.href=http://${HOMEPAGE_HREF}:8000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
