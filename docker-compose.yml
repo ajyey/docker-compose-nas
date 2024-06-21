@@ -334,11 +334,46 @@ services:
       - '3210:3210'
     environment:
       ACCESS_CODE: lobe66
+    labels:
+      - homepage.group=GPT
+      - homepage.name=Lobe Chat
+      - homepage.href=http://${HOMEPAGE_HREF}:3210
+      - homepage.description=LobeChat
+      - homepage.weight=0
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3210"]
       interval: 30s
       timeout: 10s
       retries: 3
+  
+  big-agi:
+    image: ghcr.io/enricoros/big-agi:latest
+    container_name: big-agi
+    ports:
+      - "8085:3000"
+    env_file:
+      - .env
+    command: [ "next", "start", "-p", "3000" ]
+    labels:
+      - homepage.group=GPT
+      - homepage.name=Big AGI
+      - homepage.href=http://${HOMEPAGE_HREF}:8085
+      - homepage.description=Big AGI
+      - homepage.weight=0
+
+  chatgpt-next-web:
+    image: yidadaa/chatgpt-next-web
+    container_name: chatgpt-next-web
+    profiles: [ "no-proxy" ]
+    ports:
+      - 8086:3000
+    restart: unless-stopped
+    labels:
+      - homepage.group=GPT
+      - homepage.name=ChatGPT Next Web
+      - homepage.href=http://${HOMEPAGE_HREF}:8086
+      - homepage.description=ChatGPT Next Web
+      - homepage.weight=0
 
   freshrss:
     image: lscr.io/linuxserver/freshrss:latest
@@ -352,8 +387,19 @@ services:
     ports:
       - 8083:80
     restart: unless-stopped
+    labels:
+      - homepage.group=Utilities
+      - homepage.name=FreshRSS
+      - homepage.icon=freshrss.png
+      - homepage.href=http://${HOMEPAGE_HREF}:8083
+      - homepage.description=RSS Reader
+      - homepage.weight=0
+      - homepage.widget.type=freshrss
+      - homepage.widget.url=http://freshrss:80
+      - homepage.widget.username=aj
+      - homepage.widget.password=billiejean
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      test: ["CMD", "curl", "-f", "http://localhost:8083"]
       interval: 30s
       timeout: 10s
       retries: 3
