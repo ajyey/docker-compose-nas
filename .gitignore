@@ -3,6 +3,8 @@
 docker-compose.override.yml
 /homepage/logs
 /homepage/*.yaml
+!/homepage/bookmarks.yaml
+!/homepage/settings.yaml
 /homepage/*.css
 /homepage/*.js
 /sonarr
@@ -62,3 +64,5 @@ homebridge/*
 !homebridge/.gitkeep
 navidrome/*
 !navidrome/.gitkeep
+freshrss/*
+!freshrss/.gitkeep
