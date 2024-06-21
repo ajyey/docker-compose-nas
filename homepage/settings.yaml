@@ -1,0 +1,50 @@
+---
+title: Ubuntu Server
+
+headerStyle: ${HOMEPAGE_VAR_HEADER_STYLE}
+
+layout:
+  Media:
+    style: row
+    columns: 3
+  Download:
+    style: row
+    columns: 2
+  Smart Home:
+    style: row
+    columns: 1
+  Development:
+    style: row
+    columns: 2
+  Utilities:
+    style: row
+    columns: 2
+
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  hideVisitURL: true
+
+widgets:
+  - resources:
+      cpu: true
+      memory: true
+      disk: /
+  - search:
+      provider: duckduckgo
+  - datetime:
+      format:
+        dateStyle: long
+        timeStyle: short
+      refreshInterval: 10000
+
+theme: dark
+
+customCss: |
+  body {
+    background-color: #1a1a1a;
+  }
+  .card {
+    border-radius: 10px;
+    background-color: #2a2a2a;
+  }
