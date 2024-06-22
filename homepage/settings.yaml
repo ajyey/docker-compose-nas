@@ -7,10 +7,10 @@ layout:
   Media:
     style: row
     columns: 3
-  GPT:
+  Download:
     style: row
     columns: 2
-  Download:
+  GPT:
     style: row
     columns: 2
   Smart Home:
